@@ -5,8 +5,8 @@ export const EnrollmentModel = {
   create: async (userId, courseId) => {
     const id = uuidv4();
     const sql = `
-      INSERT INTO enrollment (id, userId, courseId, progress, createdAt, updatedAt)
-      VALUES (?, ?, ?, 0, NOW(), NOW())
+      INSERT INTO enrollment (id, userId, courseId, progress, lastAccesed)
+      VALUES (?, ?, ?, 0, NOW())
     `;
     await query(sql, [id, userId, courseId]);
     return id;
@@ -18,18 +18,25 @@ export const EnrollmentModel = {
     return enrollments[0];
   },
 
-  updateProgress: async (id, progress) => {
-    const sql = 'UPDATE enrollment SET progress = ?, updatedAt = NOW() WHERE id = ?';
-    await query(sql, [progress, id]);
+  updateProgress: async (userId, courseId, progress) => {
+    const sql = `
+      UPDATE enrollment 
+      SET progress = ?, lastAccesed = NOW() 
+      WHERE userId = ? AND courseId = ?
+    `;
+    await query(sql, [progress, userId, courseId]);
   },
 
   getUserEnrollments: async (userId) => {
     const sql = `
-      SELECT e.*, c.title, c.imageUrl, c.instructor
+      SELECT e.*, c.title, c.imageUrl, c.instructor, c.level,
+             i.name as interestName
       FROM enrollment e
       JOIN course c ON e.courseId = c.id
+      JOIN courses_interests ci ON c.id = ci.courseId
+      JOIN interest i ON ci.interestId = i.id
       WHERE e.userId = ?
-      ORDER BY e.createdAt DESC
+      ORDER BY e.lastAccesed DESC
     `;
     return query(sql, [userId]);
   }

@@ -1,7 +1,10 @@
 import { motion } from 'framer-motion';
 import { GraduationCap, BookOpen, Brain } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 export function Hero() {
+  const navigate = useNavigate();
+
   return (
     <div className="relative min-h-screen bg-gradient-to-b from-blue-900 to-blue-800 text-white overflow-hidden">
       <div className="absolute inset-0">
@@ -26,6 +29,7 @@ export function Hero() {
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
+              onClick={() => navigate('/explore')}
               className="bg-white text-blue-900 px-8 py-4 rounded-full font-semibold text-lg shadow-lg hover:bg-blue-50 transition-colors"
             >
               Explore Courses

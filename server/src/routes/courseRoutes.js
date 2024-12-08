@@ -6,12 +6,15 @@ import { asyncHandler } from '../utils/asyncHandler.js';
 
 const router = express.Router();
 
+// Public routes
 router.get('/', asyncHandler(CourseController.getAllCourses));
-router.get('/:id', asyncHandler(CourseController.getCourseById));
+router.get('/search', asyncHandler(CourseController.searchCourses));
+router.get('/by-interest', asyncHandler(CourseController.getCoursesByInterest));
 
 // Protected routes
 router.use(authenticateUser);
-router.post('/:courseId/enroll', asyncHandler(CourseController.enrollCourse));
+router.get('/dashboard', asyncHandler(CourseController.getDashboardData));
 router.put('/:courseId/progress', validateProgress, asyncHandler(CourseController.updateProgress));
+router.post('/:courseId/enroll', asyncHandler(CourseController.enrollCourse));
 
 export default router;

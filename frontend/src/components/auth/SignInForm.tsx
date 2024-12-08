@@ -21,7 +21,7 @@ export function SignInForm() {
       
       if (response.success) {
         toast.success('Successfully signed in!');
-        navigate('/dashboard'); // Redirect to home page after sign in
+        navigate('/dashboard'); 
       } else {
         toast.error(response.error?.message || 'Failed to sign in');
       }

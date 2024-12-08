@@ -3,68 +3,123 @@ import { EnrollmentModel } from '../models/enrollmentModel.js';
 
 export const CourseController = {
   getAllCourses: async (req, res) => {
-    const courses = await CourseModel.findAll();
-    res.json({
-      success: true,
-      data: courses
-    });
-  },
-
-  getCourseById: async (req, res) => {
-    const course = await CourseModel.findById(req.params.id);
-    if (!course) {
-      return res.status(404).json({
+    try {
+      const courses = await CourseModel.findAllWithInterests();
+      res.json({
+        success: true,
+        data: courses
+      });
+    } catch (error) {
+      console.error('Error fetching courses:', error);
+      res.status(500).json({
         success: false,
-        error: { message: 'Course not found' }
+        error: { message: 'Error fetching courses' }
       });
     }
-    res.json({
-      success: true,
-      data: course
-    });
   },
 
-  enrollCourse: async (req, res) => {
-    const { userId } = req.user;
-    const { courseId } = req.params;
-
-    // Check if already enrolled
-    const existing = await EnrollmentModel.findByUserAndCourse(userId, courseId);
-    if (existing) {
-      return res.status(400).json({
+  getCoursesByInterest: async (req, res) => {
+    try {
+      const { interestIds } = req.query;
+      const courses = await CourseModel.findByInterests(interestIds.split(','));
+      res.json({
+        success: true,
+        data: courses
+      });
+    } catch (error) {
+      res.status(500).json({
         success: false,
-        error: { message: 'Already enrolled in this course' }
+        error: { message: 'Error fetching courses by interest' }
       });
     }
+  },
 
-    // Create enrollment
-    await EnrollmentModel.create(userId, courseId);
-    await CourseModel.updateStudentCount(courseId, true);
+  searchCourses: async (req, res) => {
+    try {
+      const { query } = req.query;
+      const courses = await CourseModel.findBySearch(query);
+      res.json({
+        success: true,
+        data: courses
+      });
+    } catch (error) {
+      res.status(500).json({
+        success: false,
+        error: { message: 'Error searching courses' }
+      });
+    }
+  },
 
-    res.status(201).json({
-      success: true,
-      message: 'Successfully enrolled in course'
-    });
+  getDashboardData: async (req, res) => {
+    try {
+      const { userId } = req.user;
+      
+      const [continueLearning, recommended, exploreNewSkills] = await Promise.all([
+        CourseModel.findContinueLearning(userId),
+        CourseModel.findRecommended(userId),
+        CourseModel.findExploreNewSkills(userId)
+      ]);
+
+      res.json({
+        success: true,
+        data: {
+          continueLearning,
+          recommended,
+          exploreNewSkills
+        }
+      });
+    } catch (error) {
+      res.status(500).json({
+        success: false,
+        error: { message: 'Error fetching dashboard data' }
+      });
+    }
   },
 
   updateProgress: async (req, res) => {
-    const { userId } = req.user;
-    const { courseId } = req.params;
-    const { progress } = req.body;
+    try {
+      const { userId } = req.user;
+      const { courseId } = req.params;
+      const { progress } = req.body;
 
-    const enrollment = await EnrollmentModel.findByUserAndCourse(userId, courseId);
-    if (!enrollment) {
-      return res.status(404).json({
+      await EnrollmentModel.updateProgress(userId, courseId, progress);
+      
+      res.json({
+        success: true,
+        message: 'Progress updated successfully'
+      });
+    } catch (error) {
+      res.status(500).json({
         success: false,
-        error: { message: 'Enrollment not found' }
+        error: { message: 'Error updating progress' }
       });
     }
+  },
 
-    await EnrollmentModel.updateProgress(enrollment.id, progress);
+  enrollCourse: async (req, res) => {
+    try {
+      const { userId } = req.user;
+      const { courseId } = req.params;
 
-    res.json({
-      success: true,
-      message: 'Progress updated successfully'
-    });
+      const existingEnrollment = await EnrollmentModel.findByUserAndCourse(userId, courseId);
+      if (existingEnrollment) {
+        return res.status(400).json({
+          success: false,
+          error: { message: 'Already enrolled in this course' }
+        });
+      }
+
+      const enrollmentId = await EnrollmentModel.create(userId, courseId);
+
+      res.status(201).json({
+        success: true,
+        data: { enrollmentId }
+      });
+    } catch (error) {
+      res.status(500).json({
+        success: false,
+        error: { message: 'Error enrolling in course' }
+      });
+    }
   }
 };
