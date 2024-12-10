@@ -22,6 +22,7 @@ export interface AuthResponse {
       email: string;
       firstName: string;
       lastName: string;
+      isAdmin: boolean;
     };
   };
   error?: {
@@ -33,10 +34,6 @@ export const AuthService = {
   login: async (data: LoginData): Promise<AuthResponse> => {
     try {
       const response = await api.post('/auth/login', data);
-      if (response.data.success) {
-        localStorage.setItem('token', response.data.data.token);
-        localStorage.setItem('user', JSON.stringify(response.data.data.user));
-      }
       return response.data;
     } catch (error: any) {
       return {
@@ -65,5 +62,11 @@ export const AuthService = {
   logout: () => {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
+  },
+
+  isAdmin: (): boolean => {
+    const user = localStorage.getItem('user');
+    if (!user) return false;
+    return JSON.parse(user).isAdmin || false;
   }
 };

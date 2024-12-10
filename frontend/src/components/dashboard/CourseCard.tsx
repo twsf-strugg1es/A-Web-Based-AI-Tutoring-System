@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { Clock, Users, Star, ArrowRight } from 'lucide-react';
 import { toast } from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 import { Course } from '../../services/course';
 import { EnrollmentService } from '../../services/enrollment';
 
@@ -10,7 +11,10 @@ interface Props {
 }
 
 export function CourseCard({ course, onEnrollment }: Props) {
-  const handleEnroll = async () => {
+  const navigate = useNavigate();
+
+  const handleEnroll = async (e: React.MouseEvent) => {
+    e.stopPropagation(); // Prevent navigation when clicking enroll button
     try {
       const response = await EnrollmentService.enrollCourse(course.id);
       if (response.success) {
@@ -26,10 +30,15 @@ export function CourseCard({ course, onEnrollment }: Props) {
     }
   };
 
+  const handleCardClick = () => {
+    navigate(`/course/${course.id}`);
+  };
+
   return (
     <motion.div
       whileHover={{ y: -5 }}
-      className="bg-white rounded-xl shadow-sm overflow-hidden hover:shadow-md transition-all"
+      className="bg-white rounded-xl shadow-sm overflow-hidden hover:shadow-md transition-all cursor-pointer"
+      onClick={handleCardClick}
     >
       <div className="relative h-48">
         <img

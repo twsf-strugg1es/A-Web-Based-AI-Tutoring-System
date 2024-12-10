@@ -19,9 +19,19 @@ export function SignInForm() {
     try {
       const response = await AuthService.login({ email, password });
       
-      if (response.success) {
+      if (response.success && response.data) {
         toast.success('Successfully signed in!');
-        navigate('/dashboard'); 
+        
+        // Store user data
+        localStorage.setItem('token', response.data.token);
+        localStorage.setItem('user', JSON.stringify(response.data.user));
+        
+        // Redirect based on user role
+        if (response.data.user.isAdmin) {
+          navigate('/admin');
+        } else {
+          navigate('/dashboard');
+        }
       } else {
         toast.error(response.error?.message || 'Failed to sign in');
       }
