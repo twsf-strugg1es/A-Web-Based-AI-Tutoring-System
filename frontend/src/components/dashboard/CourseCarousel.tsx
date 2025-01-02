@@ -1,18 +1,21 @@
-import { useState } from 'react';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Course } from '../../services/course';
-import { CourseCard } from './CourseCard';
+import { useState } from "react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Course } from "../../services/course";
+import { CourseCard } from "./CourseCard";
 
 interface CourseCarouselProps {
   courses: Course[];
   itemsPerPage?: number;
 }
 
-export function CourseCarousel({ courses, itemsPerPage = 3 }: CourseCarouselProps) {
+export function CourseCarousel({
+  courses,
+  itemsPerPage = 3,
+}: CourseCarouselProps) {
   const [currentPage, setCurrentPage] = useState(0);
   const totalPages = Math.ceil(courses.length / itemsPerPage);
-  
+
   const nextPage = () => {
     setCurrentPage((prev) => (prev + 1) % totalPages);
   };
@@ -71,7 +74,7 @@ export function CourseCarousel({ courses, itemsPerPage = 3 }: CourseCarouselProp
               key={index}
               onClick={() => setCurrentPage(index)}
               className={`w-2 h-2 rounded-full transition-colors ${
-                currentPage === index ? 'bg-blue-900' : 'bg-gray-300'
+                currentPage === index ? "bg-blue-900" : "bg-gray-300"
               }`}
               aria-label={`Go to page ${index + 1}`}
             />

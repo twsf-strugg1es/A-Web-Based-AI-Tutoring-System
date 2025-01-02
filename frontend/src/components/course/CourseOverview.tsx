@@ -1,14 +1,19 @@
 import { Clock, Users, BarChart, Award } from 'lucide-react';
+import { CourseDetails } from '../../services/course';
 
-export function CourseOverview() {
+interface CourseOverviewProps {
+  course: CourseDetails;
+}
+
+export function CourseOverview({ course }: CourseOverviewProps) {
   return (
     <div className="space-y-8">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {[
-          { icon: <Clock className="w-6 h-6" />, label: 'Duration', value: '12 Hours' },
-          { icon: <Users className="w-6 h-6" />, label: 'Enrolled', value: '2,345 Students' },
-          { icon: <BarChart className="w-6 h-6" />, label: 'Level', value: 'Intermediate' },
-          { icon: <Award className="w-6 h-6" />, label: 'Certificate', value: 'Yes' },
+          { icon: <Clock className="w-6 h-6" />, label: 'Duration', value: course.duration },
+          
+          { icon: <BarChart className="w-6 h-6" />, label: 'Level', value: course.level },
+          { icon: <Award className="w-6 h-6" />, label: 'Rating', value: course.rating.toFixed(1) },
         ].map((stat, index) => (
           <div key={index} className="bg-white p-6 rounded-lg shadow-sm">
             <div className="flex items-center space-x-4">
@@ -26,30 +31,21 @@ export function CourseOverview() {
 
       <div className="bg-white p-6 rounded-lg shadow-sm">
         <h3 className="text-xl font-semibold mb-4">About This Course</h3>
-        <p className="text-gray-600 leading-relaxed">
-          This comprehensive course will take you through all aspects of modern web development.
-          You'll learn everything from the fundamentals to advanced concepts, with practical
-          projects and real-world applications. Perfect for both beginners and intermediate
-          developers looking to upgrade their skills.
-        </p>
+        <div className="prose prose-sm max-w-none">
+          {course.description}
+        </div>
       </div>
 
       <div className="bg-white p-6 rounded-lg shadow-sm">
-        <h3 className="text-xl font-semibold mb-4">What You'll Learn</h3>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {[
-            'Build modern, responsive web applications',
-            'Master JavaScript and popular frameworks',
-            'Implement secure authentication systems',
-            'Deploy applications to production',
-            'Work with databases and APIs',
-            'Write clean, maintainable code',
-          ].map((item, index) => (
-            <div key={index} className="flex items-center space-x-2">
-              <div className="w-2 h-2 bg-blue-900 rounded-full" />
-              <span className="text-gray-700">{item}</span>
-            </div>
-          ))}
+        <h3 className="text-xl font-semibold mb-4">Instructor</h3>
+        <div className="flex items-center space-x-4">
+          <div className="w-16 h-16 bg-gray-200 rounded-full flex items-center justify-center">
+            <Users className="w-8 h-8 text-gray-400" />
+          </div>
+          <div>
+            <h4 className="text-lg font-medium">{course.instructor}</h4>
+            <p className="text-gray-600">Course Instructor</p>
+          </div>
         </div>
       </div>
     </div>

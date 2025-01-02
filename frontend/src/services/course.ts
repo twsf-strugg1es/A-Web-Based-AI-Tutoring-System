@@ -47,6 +47,15 @@ export const CourseService = {
       return [];
     }
   },
+  getCourseDetails: async (courseId: string): Promise<CourseDetails | null> => {
+    try {
+      const response = await api.get(`/courses/${courseId}/details`);
+      return response.data.data;
+    } catch (error: any) {
+      console.error('Error fetching course details:', error);
+      return null;
+    }
+  },
   getDashboardData: async (): Promise<DashboardData> => {
     try {
       const response = await api.get('/dashboard');
