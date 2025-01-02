@@ -17,7 +17,31 @@ export const CourseController = {
       });
     }
   },
+// Add this method to the CourseController
+getCourseDetails: async (req, res) => {
+  try {
+    const { courseId } = req.params;
+    const courseDetails = await CourseModel.findCourseWithChapters(courseId);
+    
+    if (!courseDetails) {
+      return res.status(404).json({
+        success: false,
+        error: { message: 'Course not found' }
+      });
+    }
 
+    res.json({
+      success: true,
+      data: courseDetails
+    });
+  } catch (error) {
+    console.error('Error fetching course details:', error);
+    res.status(500).json({
+      success: false,
+      error: { message: 'Error fetching course details' }
+    });
+  }
+},
   getCoursesByInterest: async (req, res) => {
     try {
       const { interestIds } = req.query;
@@ -95,7 +119,7 @@ export const CourseController = {
       });
     }
   },
-
+ 
   enrollCourse: async (req, res) => {
     try {
       const { userId } = req.user;
