@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
+import { CourseSetupProvider } from './contexts/CourseSetupContext';
 import { Home } from './pages/Home';
 import { SignIn } from './pages/SignIn';
 import { SignUp } from './pages/SignUp';
@@ -10,7 +11,7 @@ import { CourseView } from './pages/CourseView';
 import { CourseSetupPage } from './pages/CourseSetupPage';
 import { ProtectedRoute } from './components/ProtectedRoute';
 
-function App() {
+export function App() {
   return (
     <Router>
       <Toaster position="top-right" />
@@ -55,5 +56,3 @@ function App() {
     </Router>
   );
 }
-
-export default App;

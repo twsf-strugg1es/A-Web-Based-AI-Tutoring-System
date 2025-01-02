@@ -22,6 +22,20 @@ export interface DashboardData {
   recommended: Course[];
   exploreNewSkills: Course[];
 }
+// Add these interfaces to the existing file
+export interface CourseDetails extends Course {
+  chapters: ChapterDetails[];
+}
+
+export interface ChapterDetails {
+  id: string;
+  title: string;
+  videoLink: string;
+  textNote: string | null;
+  order: number;
+}
+
+// Add this method to the CourseService object
 
 export const CourseService = {
   getAllCourses: async (): Promise<Course[]> => {
@@ -33,7 +47,6 @@ export const CourseService = {
       return [];
     }
   },
-
   getDashboardData: async (): Promise<DashboardData> => {
     try {
       const response = await api.get('/dashboard');
@@ -71,3 +84,4 @@ export const CourseService = {
     }
   }
 };
+
