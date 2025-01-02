@@ -16,5 +16,7 @@ router.use(authenticateUser);
 router.get('/dashboard', asyncHandler(CourseController.getDashboardData));
 router.put('/:courseId/progress', validateProgress, asyncHandler(CourseController.updateProgress));
 router.post('/:courseId/enroll', asyncHandler(CourseController.enrollCourse));
-
+// Add this route to the existing routes
+router.get('/:courseId/details', asyncHandler(CourseController.getCourseDetails));
 export default router;
+

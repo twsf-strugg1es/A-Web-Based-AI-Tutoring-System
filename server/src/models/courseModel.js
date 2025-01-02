@@ -65,7 +65,6 @@ export const CourseModel = {
         c.description LIKE ? OR 
         c.instructor LIKE ? OR
         i.name LIKE ?
-      GROUP BY c.id
       ORDER BY c.rating DESC
     `;
     const term = `%${searchTerm}%`;
@@ -145,5 +144,47 @@ export const CourseModel = {
       LIMIT 12
     `;
     return query(sql, [userId, userId]);
-  }
+  },
+  // Add this method to the CourseModel
+findCourseWithChapters: async (courseId) => {
+  const sql = `
+    SELECT 
+      c.*,
+      ch.id as chapter_id,
+      ch.title as chapter_title,
+      ch.video_link,
+      ch.text_note,
+      ch.order as chapter_order
+    FROM course c
+    LEFT JOIN chapter ch ON c.id = ch.course_id
+    WHERE c.id = ?
+    ORDER BY ch.order ASC
+  `;
+  
+  const results = await query(sql, [courseId]);
+  
+  if (!results.length) return null;
+  
+  // Transform the flat results into nested structure
+  const course = {
+    id: results[0].id,
+    title: results[0].title,
+    description: results[0].description,
+    imageUrl: results[0].imageUrl,
+    instructor: results[0].instructor,
+    duration: results[0].duration,
+    level: results[0].level,
+    rating: results[0].rating,
+    students: results[0].students,
+    chapters: results.map(row => ({
+      id: row.chapter_id,
+      title: row.chapter_title,
+      videoLink: row.video_link,
+      textNote: row.text_note,
+      order: row.chapter_order
+    })).filter(chapter => chapter.id) // Remove null chapters
+  };
+  
+  return course;
+}
 };

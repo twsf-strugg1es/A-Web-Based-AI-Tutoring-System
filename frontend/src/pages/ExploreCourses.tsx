@@ -69,7 +69,7 @@ export function ExploreCourses() {
           <motion.h1 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-center text-4xl font-bold mb-4"
+            className="text-4xl font-bold mb-4"
           >
             Explore Our Courses
           </motion.h1>
@@ -77,7 +77,7 @@ export function ExploreCourses() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            className="text-center text-xl text-blue-100 mb-8"
+            className="text-xl text-blue-100 mb-8"
           >
             Discover courses that match your interests and goals
           </motion.p>

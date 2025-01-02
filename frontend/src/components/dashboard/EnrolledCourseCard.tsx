@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { Clock, Users, Star } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import { Course } from '../../services/course';
 import { CourseProgress } from './CourseProgress';
 
@@ -8,10 +9,17 @@ interface Props {
 }
 
 export function EnrolledCourseCard({ course }: Props) {
+  const navigate = useNavigate();
+
+  const handleCardClick = () => {
+    navigate(`/course/${course.id}`);
+  };
+
   return (
     <motion.div
       whileHover={{ y: -5 }}
-      className="bg-white rounded-xl shadow-sm overflow-hidden hover:shadow-md transition-all"
+      className="bg-white rounded-xl shadow-sm overflow-hidden hover:shadow-md transition-all cursor-pointer"
+      onClick={handleCardClick}
     >
       <div className="relative h-48">
         <img
