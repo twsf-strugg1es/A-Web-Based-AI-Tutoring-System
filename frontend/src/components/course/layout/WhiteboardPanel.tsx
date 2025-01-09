@@ -7,8 +7,6 @@ interface WhiteboardPanelProps {
   isPopup?: boolean;
   onClose?: () => void;
   onMaximize?: () => void;
-  courseId: string;
-  chapterId: string;
 }
 
 export function WhiteboardPanel({ 
@@ -16,9 +14,7 @@ export function WhiteboardPanel({
   onToggle, 
   isPopup = false, 
   onClose,
-  onMaximize,
-  courseId,
-  chapterId
+  onMaximize
 }: WhiteboardPanelProps) {
   if (isPopup && isOpen) {
     return (
@@ -31,7 +27,7 @@ export function WhiteboardPanel({
           >
             <X className="w-5 h-5" />
           </button>
-          <Whiteboard courseId={courseId} chapterId={chapterId} />
+          <Whiteboard />
         </div>
       </div>
     );
@@ -70,7 +66,7 @@ export function WhiteboardPanel({
                 <Maximize2 className="w-5 h-5" />
               </button>
             </div>
-            <Whiteboard courseId={courseId} chapterId={chapterId} />
+            <Whiteboard />
           </div>
         )}
       </div>

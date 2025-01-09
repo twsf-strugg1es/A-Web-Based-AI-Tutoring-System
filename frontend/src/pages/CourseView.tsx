@@ -29,7 +29,6 @@ export function CourseView() {
   const [isLoading, setIsLoading] = useState(true);
   const [currentChapterIndex, setCurrentChapterIndex] = useState(0);
   const { messages, isTyping, sendMessage } = useChat();
-  console.log(courseId); 
 
   useEffect(() => {
     if (courseId) {
@@ -163,16 +162,8 @@ export function CourseView() {
           isOpen={isWhiteboardOpen || isWhiteboardPopup}
           onToggle={() => setIsWhiteboardOpen(!isWhiteboardOpen)}
           isPopup={isWhiteboardPopup}
-          onClose={() => {
-            setIsWhiteboardOpen(false);
-            setIsWhiteboardPopup(false);
-          }}
-          onMaximize={() => {
-            setIsWhiteboardOpen(false);
-            setIsWhiteboardPopup(true);
-          }}
-          courseId={courseId!}
-          chapterId={currentChapter?.id || ''}
+          onClose={handleWhiteboardClose}
+          onMaximize={handleWhiteboardMaximize}
         />
       </div>
     </div>

@@ -1,6 +1,8 @@
 import { UserModel } from '../models/userModel.js';
 import { AdminCourseModel } from '../models/adminModel.js';
 import { v4 as uuidv4 } from 'uuid';
+import { ReviewModel } from '../models/reviewModel.js';
+
 
 export const AdminController = {
   getDashboardStats: async (req, res) => {
@@ -38,6 +40,40 @@ export const AdminController = {
       res.status(500).json({
         success: false,
         error: { message: 'Error fetching courses' }
+      });
+    }
+  },
+  getUnreadReviews: async (req, res) => {
+    try {
+      const reviews = await ReviewModel.getAllUnreadReviews();
+      
+      res.json({
+        success: true,
+        data: reviews
+      });
+    } catch (error) {
+      console.error('Error fetching unread reviews:', error);
+      res.status(500).json({
+        success: false,
+        error: { message: 'Error fetching unread reviews' }
+      });
+    }
+  },
+
+  markReviewAsRead: async (req, res) => {
+    try {
+      const { reviewId } = req.params;
+      await ReviewModel.markAsRead(reviewId);
+        
+      res.json({
+          success: true,
+          message: 'Review marked as read'
+      });
+    } catch (error) {
+      console.error('Error marking review as read:', error);
+      res.status(500).json({
+        success: false,
+        error: { message: 'Error marking review as read' }
       });
     }
   },

@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { User, BookOpen, Settings, LogOut, Pencil } from 'lucide-react';
+import { User, BookOpen, Settings, LogOut } from 'lucide-react';
 import { AuthService } from '../../services/auth';
 
 export function UserProfileDropdown() {
@@ -57,13 +57,6 @@ export function UserProfileDropdown() {
             >
               <BookOpen className="w-4 h-4 mr-2" />
               My Learning
-            </button>
-            <button
-              onClick={() => handleNavigation('/inventory')}
-              className="w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 flex items-center"
-            >
-              <Pencil className="w-4 h-4 mr-2" />
-              Whiteboard Inventory
             </button>
             <button
               onClick={() => handleNavigation('/settings')}
