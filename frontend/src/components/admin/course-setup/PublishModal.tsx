@@ -1,13 +1,47 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { X } from 'lucide-react';
+import { toast } from 'react-hot-toast';
+import { CourseSetupService } from '../../../services/courseSetup';
+import { useNavigate } from 'react-router-dom';
 
 interface PublishModalProps {
   isOpen: boolean;
   onClose: () => void;
+  courseId?: string;
+  courseData: any;
+  chapters: any[];
 }
 
-export function PublishModal({ isOpen, onClose }: PublishModalProps) {
+export function PublishModal({ isOpen, onClose, courseId, courseData, chapters }: PublishModalProps) {
+  const navigate = useNavigate();
+
   if (!isOpen) return null;
+
+  const handlePublish = async () => {
+    try {
+      if (!courseId) {
+        throw new Error('Course ID is required');
+      }
+
+      const response = await CourseSetupService.publishCourse(courseId, {
+        courseData: {
+          ...courseData,
+          status: 'published'
+        },
+        chapters
+      });
+
+      if (!response.success) {
+        throw new Error(response.error?.message);
+      }
+
+      toast.success('Course published successfully!');
+      onClose();
+      navigate('/admin');
+    } catch (error: any) {
+      toast.error(error.message || 'Failed to publish course');
+    }
+  };
 
   return (
     <AnimatePresence>
@@ -32,6 +66,15 @@ export function PublishModal({ isOpen, onClose }: PublishModalProps) {
             <p className="text-gray-600">
               Are you sure you want to publish this course? Once published, it will be visible to all students.
             </p>
+
+            <div className="mt-4 bg-blue-50 p-4 rounded-lg">
+              <h4 className="font-medium text-blue-900 mb-2">Publishing will:</h4>
+              <ul className="text-sm text-blue-800 space-y-2">
+                <li>• Make the course visible in search results</li>
+                <li>• Allow students to enroll</li>
+                <li>• Save all your recent changes</li>
+              </ul>
+            </div>
           </div>
 
           <div className="flex items-center justify-end gap-4 p-6 border-t border-gray-200">
@@ -42,7 +85,7 @@ export function PublishModal({ isOpen, onClose }: PublishModalProps) {
               Cancel
             </button>
             <button 
-              onClick={onClose}
+              onClick={handlePublish}
               className="px-4 py-2 bg-blue-900 text-white rounded-lg hover:bg-blue-800 transition-colors"
             >
               Publish Course

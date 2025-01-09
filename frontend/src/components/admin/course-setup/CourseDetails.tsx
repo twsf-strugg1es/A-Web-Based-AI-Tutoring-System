@@ -1,20 +1,29 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Edit2 } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { CourseSetupData } from '../../../services/courseSetup';
 
 interface CourseDetailsProps {
-  onUpdate: () => void;
+  initialData?: CourseSetupData | null;
+  onUpdate: (data: Partial<CourseSetupData>) => void;
 }
 
-export function CourseDetails({ onUpdate }: CourseDetailsProps) {
+export function CourseDetails({ initialData, onUpdate }: CourseDetailsProps) {
   const [isEditing, setIsEditing] = useState(false);
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
+  const [title, setTitle] = useState(initialData?.title || '');
+  const [description, setDescription] = useState(initialData?.description || '');
+
+  useEffect(() => {
+    if (initialData) {
+      setTitle(initialData.title);
+      setDescription(initialData.description);
+    }
+  }, [initialData]);
 
   const handleSave = () => {
     setIsEditing(false);
     if (title && description) {
-      onUpdate();
+      onUpdate({ title, description });
     }
   };
 
@@ -64,7 +73,11 @@ export function CourseDetails({ onUpdate }: CourseDetailsProps) {
 
           <div className="flex justify-end space-x-4">
             <button
-              onClick={() => setIsEditing(false)}
+              onClick={() => {
+                setIsEditing(false);
+                setTitle(initialData?.title || '');
+                setDescription(initialData?.description || '');
+              }}
               className="px-4 py-2 text-gray-600 hover:text-gray-900"
             >
               Cancel

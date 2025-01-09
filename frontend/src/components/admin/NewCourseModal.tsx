@@ -1,5 +1,9 @@
 import { X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import { toast } from 'react-hot-toast';
+import { AdminService } from '../../services/admin';
 
 interface NewCourseModalProps {
   isOpen: boolean;
@@ -7,6 +11,33 @@ interface NewCourseModalProps {
 }
 
 export function NewCourseModal({ isOpen, onClose }: NewCourseModalProps) {
+  const navigate = useNavigate();
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleSubmit = async () => {
+    if (!title.trim()) {
+      toast.error('Please enter a course title');
+      return;
+    }
+
+    setIsLoading(true);
+    try {
+      const response = await AdminService.createCourse({ title, description });
+      if (response.success && response.data) {
+        toast.success('Course created successfully');
+        navigate(`/admin/courses/${response.data.id}/edit`, { state: { fromNewCourse: true } });
+      } else {
+        toast.error(response.error?.message || 'Failed to create course');
+      }
+    } catch (error) {
+      toast.error('An error occurred while creating the course');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   if (!isOpen) return null;
 
   return (
@@ -36,8 +67,11 @@ export function NewCourseModal({ isOpen, onClose }: NewCourseModalProps) {
                 </label>
                 <input
                   type="text"
+                  value={title}
+                  onChange={(e) => setTitle(e.target.value)}
                   className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   placeholder="Enter course title"
+                  disabled={isLoading}
                 />
               </div>
 
@@ -47,19 +81,12 @@ export function NewCourseModal({ isOpen, onClose }: NewCourseModalProps) {
                 </label>
                 <textarea
                   rows={4}
+                  value={description}
+                  onChange={(e) => setDescription(e.target.value)}
                   className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   placeholder="Enter course description"
+                  disabled={isLoading}
                 />
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Status
-                </label>
-                <select className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-                  <option value="draft">Draft</option>
-                  <option value="published">Published</option>
-                </select>
               </div>
             </div>
           </div>
@@ -68,11 +95,16 @@ export function NewCourseModal({ isOpen, onClose }: NewCourseModalProps) {
             <button
               onClick={onClose}
               className="px-4 py-2 text-gray-700 hover:text-gray-800 transition-colors"
+              disabled={isLoading}
             >
               Cancel
             </button>
-            <button className="px-4 py-2 bg-blue-900 text-white rounded-lg hover:bg-blue-800 transition-colors">
-              Create Course
+            <button 
+              onClick={handleSubmit}
+              disabled={isLoading}
+              className="px-4 py-2 bg-blue-900 text-white rounded-lg hover:bg-blue-800 transition-colors disabled:bg-blue-300"
+            >
+              {isLoading ? 'Creating...' : 'Create Course'}
             </button>
           </div>
         </motion.div>
