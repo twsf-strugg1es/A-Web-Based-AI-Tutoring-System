@@ -2,12 +2,24 @@ import { useState, useRef, useEffect } from 'react';
 import { Bell } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { NotificationService, Notification } from '../../services/notification';
+import { useLocation } from "react-router-dom";
 
-export function NotificationDropdown() {
+export function NotificationDropdown(
+  {
+   
+    currentVideoInfo,
+    handleVideoProgress
+  }: {
+
+    currentVideoInfo: any;
+    handleVideoProgress:(progress: number, timeStamp: number) => Promise<void>;
+  }
+) {
   const [isOpen, setIsOpen] = useState(false);
   const [notifications, setNotifications] = useState<Notification[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const { pathname } = useLocation();
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
@@ -41,12 +53,23 @@ export function NotificationDropdown() {
     ));
   };
 
+  const handleOpen = ()=>{
+    console.log(pathname)
+    if(pathname.startsWith('/course')){
+      const percent = currentVideoInfo.currentTime / currentVideoInfo.duration;
+      handleVideoProgress(percent, currentVideoInfo.currentTime);
+  
+      console.log("Back e gesi", percent, currentVideoInfo.currentTime);
+    }
+    setIsOpen(!isOpen)
+  }
+
   const unreadCount = notifications.filter(n => !n.isRead).length;
 
   return (
     <div className="relative" ref={dropdownRef}>
       <button
-        onClick={() => setIsOpen(!isOpen)}
+        onClick={handleOpen}
         className="p-2 hover:bg-gray-100 rounded-full transition-colors relative"
       >
         <Bell className="w-6 h-6 text-gray-600" />

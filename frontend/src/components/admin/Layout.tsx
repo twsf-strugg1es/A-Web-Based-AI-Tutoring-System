@@ -1,16 +1,24 @@
-import { LayoutDashboard, MessageSquare } from 'lucide-react';
-import { AdminNavbar } from './AdminNavbar';
+import { LayoutDashboard, MessageSquare, Star } from "lucide-react";
+import { AdminNavbar } from "./AdminNavbar";
 
 interface LayoutProps {
   children: React.ReactNode;
-  currentView: 'courses' | 'complaints';
-  onViewChange: (view: 'courses' | 'complaints') => void;
+  currentView: "courses" | "feedback";
+  onViewChange: (view: "courses" | "feedback") => void;
 }
 
 export function Layout({ children, currentView, onViewChange }: LayoutProps) {
   const menuItems = [
-    { id: 'courses', label: 'Courses', icon: <LayoutDashboard className="w-5 h-5" /> },
-    { id: 'complaints', label: 'Complaint Box', icon: <MessageSquare className="w-5 h-5" /> }
+    {
+      id: "courses",
+      label: "Courses",
+      icon: <LayoutDashboard className="w-5 h-5" />,
+    },
+    {
+      id: "feedback",
+      label: "Course Feedback",
+      icon: <Star className="w-5 h-5" />,
+    },
   ];
 
   return (
@@ -23,12 +31,13 @@ export function Layout({ children, currentView, onViewChange }: LayoutProps) {
             {menuItems.map((item) => (
               <button
                 key={item.id}
-                onClick={() => onViewChange(item.id as 'courses' | 'complaints')}
+                onClick={() => onViewChange(item.id as "courses" | "feedback")}
                 className={`
                   w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition-colors
-                  ${currentView === item.id
-                    ? 'bg-blue-50 text-blue-900'
-                    : 'text-gray-600 hover:bg-gray-50'
+                  ${
+                    currentView === item.id
+                      ? "bg-blue-50 text-blue-900"
+                      : "text-gray-600 hover:bg-gray-50"
                   }
                 `}
               >
@@ -40,9 +49,7 @@ export function Layout({ children, currentView, onViewChange }: LayoutProps) {
         </aside>
 
         {/* Main Content */}
-        <main className="flex-1 p-8 overflow-auto">
-          {children}
-        </main>
+        <main className="flex-1 p-8 overflow-auto">{children}</main>
       </div>
     </div>
   );

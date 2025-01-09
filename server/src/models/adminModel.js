@@ -17,6 +17,7 @@ export const AdminCourseModel = {
       ORDER BY c.createdAt DESC
     `;
     const searchTerm = `%${searchQuery}%`;
+    
     return query(sql, [searchTerm, searchTerm, searchTerm]);
   },
 
@@ -25,10 +26,48 @@ export const AdminCourseModel = {
     return query(sql, [status, courseId]);
   },
 
+  // getCourseFeedback: async (courseId) => {
+  //   const sql = `
+  //     SELECT f.*, u.firstName, u.lastName
+  //     FROM feedback f
+  //     JOIN user u ON f.userId = u.id
+  //     WHERE f.courseId = ?
+  //     ORDER BY f.createdAt DESC
+  //   `;
+  //   return query(sql, [courseId]);
+  // },
+  getAllFeedback: async () => {
+    const sql = `
+      SELECT 
+        f.id,
+        f.courseId,
+        c.title as courseName,
+        f.userId,
+        CONCAT(u.firstName, ' ', u.lastName) as userName,
+        f.message,
+        f.isRead,
+        f.createdAt
+      FROM feedback f
+      JOIN course c ON f.courseId = c.id
+      JOIN user u ON f.userId = u.id
+      ORDER BY f.createdAt DESC
+    `;
+    return query(sql);
+  },
+
   getCourseFeedback: async (courseId) => {
     const sql = `
-      SELECT f.*, u.firstName, u.lastName
+      SELECT 
+        f.id,
+        f.courseId,
+        c.title as courseName,
+        f.userId,
+        CONCAT(u.firstName, ' ', u.lastName) as userName,
+        f.message,
+        f.isRead,
+        f.createdAt
       FROM feedback f
+      JOIN course c ON f.courseId = c.id
       JOIN user u ON f.userId = u.id
       WHERE f.courseId = ?
       ORDER BY f.createdAt DESC
@@ -36,7 +75,22 @@ export const AdminCourseModel = {
     return query(sql, [courseId]);
   },
 
-  createCourse: async ({ title, description }) => {
+  markFeedbackAsRead: async (feedbackId) => {
+    const sql = 'UPDATE feedback SET isRead = true WHERE id = ?';
+    return query(sql, [feedbackId]);
+  },
+
+  getUnreadFeedbackCount: async (courseId = null) => {
+    const sql = courseId
+      ? 'SELECT COUNT(*) as count FROM feedback WHERE courseId = ? AND isRead = false'
+      : 'SELECT COUNT(*) as count FROM feedback WHERE isRead = false';
+    
+    const params = courseId ? [courseId] : [];
+    const [result] = await query(sql, params);
+    return result.count;
+  },
+
+  createCourse: async ({ title, description,instructor,level }) => {
     const id = uuidv4();
     const sql = `
       INSERT INTO course (
@@ -60,10 +114,10 @@ export const AdminCourseModel = {
       title,
       description,
       'draft',
-      '', // instructor
+      instructor, // instructor
       '', // imageUrl
       '', // duration
-      'BEGINNER', // default level
+      level, // default level
       0, // initial rating
       0  // initial students
     ]);

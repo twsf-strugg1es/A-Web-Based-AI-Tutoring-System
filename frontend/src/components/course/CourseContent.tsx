@@ -5,14 +5,14 @@ interface CourseContentProps {
   chapters: ChapterDetails[];
   currentChapterIndex: number;
   onChapterSelect: (index: number) => void;
-  handleChapterIdxChange: (index: number) => void
+  
 }
 
 export function CourseContent({ 
   chapters,
   currentChapterIndex,
   onChapterSelect
-  ,handleChapterIdxChange
+  
 }: CourseContentProps) {
   return (
     <div className="space-y-4">
@@ -23,7 +23,7 @@ export function CourseContent({
         >
           <button
             onClick={() => {onChapterSelect(index)
-              handleChapterIdxChange(index)
+              onChapterSelect(index)
             }}
             className={`w-full flex items-center justify-between p-4 ${
               currentChapterIndex === index ? 'bg-blue-50' : ''

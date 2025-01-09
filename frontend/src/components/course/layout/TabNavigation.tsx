@@ -1,6 +1,6 @@
 import { BookOpen, Brain, Edit3, ClipboardList } from 'lucide-react';
 
-export type TabType = 'overview' | 'content' | 'notes' | 'reviews' | 'ai';
+export type TabType = 'overview' | 'content' | 'notes' | 'reviews' | 'ai' | "MCQ";
 
 interface TabNavigationProps {
   activeTab: TabType;
@@ -9,7 +9,7 @@ interface TabNavigationProps {
 
 export function TabNavigation({ activeTab, onTabChange }: TabNavigationProps) {
   const tabs = [
-    { id: 'overview' as const, icon: <BookOpen className="w-4 h-4" />, label: 'Overview' },
+    // { id: 'overview' as const, icon: <BookOpen className="w-4 h-4" />, label: 'Overview' },
     { id: 'content' as const, icon: <Edit3 className="w-4 h-4" />, label: 'Course Content' },
     { id: 'notes' as const, icon: <BookOpen className="w-4 h-4" />, label: 'Notes' },
     { id: 'reviews' as const, icon: <Edit3 className="w-4 h-4" />, label: 'Reviews' },

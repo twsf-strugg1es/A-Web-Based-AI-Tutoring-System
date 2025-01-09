@@ -36,7 +36,12 @@ export const AdminService = {
     }
   },
 
-  createCourse: async (data: { title: string; description: string }): Promise<AdminResponse<{ id: string }>> => {
+  createCourse: async (data: { 
+    title: string; 
+    description: string;
+    instructor: string;
+    level: 'BEGINNER' | 'INTERMEDIATE' | 'ADVANCED';
+  }): Promise<AdminResponse<{ id: string }>> => {
     try {
       const response = await api.post('/admin/courses', data);
       return response.data;
@@ -64,7 +69,7 @@ export const AdminService = {
     }
   },
 
-  getCourseFeedback: async (courseId: string): Promise<AdminResponse<any[]>> => {
+  getCourseFeedback2: async (courseId: string): Promise<AdminResponse<any[]>> => {
     try {
       const response = await api.get(`/admin/courses/${courseId}/feedback`);
       return response.data;
@@ -73,6 +78,36 @@ export const AdminService = {
         success: false,
         error: {
           message: error.response?.data?.error?.message || 'Error fetching course feedback'
+        }
+      };
+    }
+  },
+  markFeedbackAsRead: async (feedbackId: string): Promise<AdminResponse<void>> => {
+    try {
+      const response = await api.put(`/admin/feedback/${feedbackId}/read`);
+      return response.data;
+    } catch (error: any) {
+      return {
+        success: false,
+        error: {
+          message: error.response?.data?.error?.message || 'Error marking feedback as read'
+        }
+      };
+    }
+  },
+  
+  getCourseFeedback: async (courseId?: string): Promise<AdminResponse<Feedback[]>> => {
+    try {
+      const url = courseId 
+        ? `/admin/courses/${courseId}/feedback`
+        : '/admin/feedback';
+      const response = await api.get(url);
+      return response.data;
+    } catch (error: any) {
+      return {
+        success: false,
+        error: {
+          message: error.response?.data?.error?.message || 'Error fetching feedback'
         }
       };
     }

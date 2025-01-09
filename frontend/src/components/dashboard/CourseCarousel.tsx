@@ -52,14 +52,14 @@ export function CourseCarousel({
         <>
           <button
             onClick={prevPage}
-            className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 bg-white rounded-full p-2 shadow-lg opacity-0 group-hover:opacity-100 transition-opacity"
+            className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 bg-white rounded-full p-2 shadow-lg opacity-90 group-hover:opacity-100 transition-opacity"
             aria-label="Previous page"
           >
             <ChevronLeft className="w-6 h-6 text-blue-900" />
           </button>
           <button
             onClick={nextPage}
-            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 bg-white rounded-full p-2 shadow-lg opacity-0 group-hover:opacity-100 transition-opacity"
+            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 bg-white rounded-full p-2 shadow-lg opacity-90 group-hover:opacity-100 transition-opacity"
             aria-label="Next page"
           >
             <ChevronRight className="w-6 h-6 text-blue-900" />

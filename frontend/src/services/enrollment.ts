@@ -11,9 +11,9 @@ export interface EnrollmentResponse {
 }
 
 export const EnrollmentService = {
-  enrollCourse: async (courseId: string): Promise<EnrollmentResponse> => {
+  enrollCourse: async (courseId: string, id:string): Promise<EnrollmentResponse> => {
     try {
-      const response = await api.post(`/courses/${courseId}/enroll`);
+      const response = await api.post(`/courses/${courseId}/enroll/${id}`);
       return response.data;
     } catch (error: any) {
       return {

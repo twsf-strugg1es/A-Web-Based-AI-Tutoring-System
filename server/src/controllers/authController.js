@@ -1,18 +1,19 @@
-import bcrypt from 'bcryptjs';
-import jwt from 'jsonwebtoken';
-import { UserModel } from '../models/userModel.js';
-import { InterestModel } from '../models/interestModel.js';
+import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
+import { UserModel } from "../models/userModel.js";
+import { InterestModel } from "../models/interestModel.js";
 
 export const AuthController = {
   register: async (req, res) => {
     const { email, password, firstName, lastName, interests } = req.body;
-
+    console.log("Interests:", interests);
+    console.log(email);
     try {
       const existingUser = await UserModel.findByEmail(email);
       if (existingUser) {
         return res.status(400).json({
           success: false,
-          error: { message: 'Email already registered' }
+          error: { message: "Email already registered" },
         });
       }
 
@@ -23,31 +24,19 @@ export const AuthController = {
         password: hashedPassword,
         firstName,
         lastName,
-        isAdmin: false
+        isAdmin: false,
       });
 
-      if (interests && interests.length > 0) {
-        const allInterests = await InterestModel.findAll();
-        const interestMap = new Map(allInterests.map(i => [i.name, i.id]));
-        
-        const interestIds = interests
-          .map(name => interestMap.get(name))
-          .filter(id => id);
-
-        if (interestIds.length > 0) {
-          await UserModel.updateInterests(userId, interestIds);
-        }
-      }
-
+      await UserModel.updateInterests(userId, interests);
       res.status(201).json({
         success: true,
-        message: 'User registered successfully'
+        message: "User registered successfully",
       });
     } catch (error) {
-      console.error('Registration error:', error);
+      console.error("Registration error:", error);
       res.status(500).json({
         success: false,
-        error: { message: 'Error during registration' }
+        error: { message: "Error during registration" },
       });
     }
   },
@@ -60,7 +49,7 @@ export const AuthController = {
       if (!user) {
         return res.status(401).json({
           success: false,
-          error: { message: 'Invalid credentials' }
+          error: { message: "Invalid credentials" },
         });
       }
 
@@ -68,14 +57,14 @@ export const AuthController = {
       if (!isValidPassword) {
         return res.status(401).json({
           success: false,
-          error: { message: 'Invalid credentials' }
+          error: { message: "Invalid credentials" },
         });
       }
 
       const token = jwt.sign(
         { userId: user.id },
-        process.env.JWT_SECRET || 'your-secret-key',
-        { expiresIn: '24h' }
+        process.env.JWT_SECRET || "your-secret-key",
+        { expiresIn: "24h" }
       );
 
       res.json({
@@ -87,16 +76,16 @@ export const AuthController = {
             email: user.email,
             firstName: user.firstName,
             lastName: user.lastName,
-            isAdmin: user.isAdmin
-          }
-        }
+            isAdmin: user.isAdmin,
+          },
+        },
       });
     } catch (error) {
-      console.error('Login error:', error);
+      console.error("Login error:", error);
       res.status(500).json({
         success: false,
-        error: { message: 'Error during login' }
+        error: { message: "Error during login" },
       });
     }
-  }
+  },
 };

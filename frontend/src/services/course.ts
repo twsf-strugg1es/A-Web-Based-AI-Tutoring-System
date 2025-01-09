@@ -17,6 +17,49 @@ export interface EnrolledCoursesResponse {
   };
 }
 
+<<<<<<< Updated upstream
+=======
+
+export interface CourseOverviewDetails {
+  id: string;
+  title: string;
+  description: string;
+  imageUrl: string;
+  instructor: string;
+  duration: string;
+  level: string;
+  rating: number;
+  students: number;
+  enrollmentId?: string;
+  chapters: {
+    id: string;
+    title: string;
+    duration: string;
+    isCompleted: boolean;
+    order: number;
+  }[];
+}
+
+export interface CourseRating {
+  rating: number;
+  count: number;
+}
+
+export interface CourseRatingsDistribution {
+  totalRatings: number;
+  averageRating: number;
+  distribution: Record<number, number>; // Key is rating (1-5), value is count
+}
+
+export interface CourseOverviewResponse {
+  success: boolean;
+  data?: CourseOverviewDetails;
+  error?: {
+    message: string;
+  };
+}
+
+>>>>>>> Stashed changes
 export interface Course {
   id: string;
   title: string;
@@ -32,12 +75,14 @@ export interface Course {
   progress?: number;
   lastAccessed?: string;
   enrollmentCount?: number;
+  enrollmentId?:string;
 }
 
 export interface DashboardData {
   continueLearning: Course[];
   recommended: Course[];
   exploreNewSkills: Course[];
+  
 }
 
 export interface CourseDetails extends Course {
@@ -109,6 +154,71 @@ export const CourseService = {
       throw new Error(error.response?.data?.error?.message || 'Error updating progress');
     }
   },
+<<<<<<< Updated upstream
+=======
+  getEnrolledCourses: async (): Promise<EnrolledCoursesResponse> => {
+    try {
+      const response = await api.get('/courses/enrolled');
+      return response.data;
+    } catch (error: any) {
+      return {
+        success: false,
+        error: {
+          message: error.response?.data?.error?.message || 'Error fetching enrolled courses',
+        },
+      };
+    }
+  },
+  getCourseOverview: async (courseId: string): Promise<CourseOverviewResponse> => {
+    try {
+      const response = await api.get(`/courses/${courseId}/overview`);
+      return response.data;
+    } catch (error: any) {
+      return {
+        success: false,
+        error: {
+          message: error.response?.data?.error?.message || 'Error fetching course overview'
+        }
+      };
+    }
+  },
+  getCourseRatings: async (courseId: string): Promise<CourseRatingsDistribution> => {
+    try {
+      const response = await api.get(`/courses/${courseId}/ratings`);
+      return response.data.data;
+    } catch (error: any) {
+      console.error('Error fetching course ratings:', error);
+      return {
+        totalRatings: 0,
+        averageRating: 0,
+        distribution: { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 }
+      };
+    }
+  },
+
+  submitRating: async (courseId: string, rating: number): Promise<void> => {
+    try {
+      await api.post(`/courses/${courseId}/ratings`, { rating });
+    } catch (error: any) {
+      throw new Error(error.response?.data?.error?.message || 'Error submitting rating');
+    }
+  },
+
+  enrollInCourse: async (courseId: string): Promise<CourseOverviewResponse> => {
+    try {
+      const response = await api.post(`/courses/${courseId}/enroll`);
+      return response.data;
+    } catch (error: any) {
+      return {
+        success: false,
+        error: {
+          message: error.response?.data?.error?.message || 'Error enrolling in course'
+        }
+      };
+    }
+  }
+};
+>>>>>>> Stashed changes
 
   getEnrolledCourses: async (): Promise<EnrolledCoursesResponse> => {
     try {

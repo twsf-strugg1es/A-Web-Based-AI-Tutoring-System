@@ -1,13 +1,19 @@
-import { useRef } from 'react';
-import { formatTime } from '../../utils/videoUtils';
+import { useRef } from "react";
+import { formatTime } from "../../utils/videoUtils";
 
 interface VideoProgressProps {
   currentTime: number;
   duration: number;
   onSeek: (time: number) => void;
+  handleVideoProgress: (progress: number,timeStamp:number) => Promise<void>;
 }
 
-export function VideoProgress({ currentTime, duration, onSeek }: VideoProgressProps) {
+export function VideoProgress({
+  currentTime,
+  duration,
+  onSeek,
+  handleVideoProgress,
+}: VideoProgressProps) {
   const progressRef = useRef<HTMLDivElement>(null);
 
   const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -17,11 +23,15 @@ export function VideoProgress({ currentTime, duration, onSeek }: VideoProgressPr
     const percentage = (e.clientX - rect.left) / rect.width;
     onSeek(percentage * duration);
 
-    console.log('percentage video dekhese: ',percentage)
+    console.log("percentage video dekhese: ", percentage);
+    handleVideoProgress(percentage,percentage * duration);
+
+   
+    
   };
 
   return (
-    <div 
+    <div
       ref={progressRef}
       onClick={handleClick}
       className="group relative h-1 bg-white/30 cursor-pointer mb-4"
@@ -31,7 +41,7 @@ export function VideoProgress({ currentTime, duration, onSeek }: VideoProgressPr
         className="absolute top-0 left-0 h-full bg-red-600"
         style={{ width: `${(currentTime / duration) * 100}%` }}
       />
-      
+
       {/* Hover preview */}
       <div className="absolute top-0 left-0 w-full h-full opacity-0 group-hover:opacity-100">
         <div className="absolute -top-8 transform -translate-x-1/2 bg-black/80 text-white text-xs px-2 py-1 rounded">

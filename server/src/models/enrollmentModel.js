@@ -1,19 +1,20 @@
-import { query } from '../config/database.js';
-import { v4 as uuidv4 } from 'uuid';
+import { query } from "../config/database.js";
+import { v4 as uuidv4 } from "uuid";
 
 export const EnrollmentModel = {
-  create: async (userId, courseId) => {
-    const id = uuidv4();
+  create: async (userId, courseId,id) => {
+    // const id = uuidv4();
+    console.log(id);
     const sql = `
-      INSERT INTO enrollment (id, userId, courseId, progress, lastAccesed)
-      VALUES (?, ?, ?, 0, NOW())
+      INSERT INTO enrollment (id, userId, courseId, progress, lastAccessed, lastChapterIndex)
+      VALUES (?, ?, ?, 0, NOW(),0)
     `;
     await query(sql, [id, userId, courseId]);
     return id;
   },
 
   findByUserAndCourse: async (userId, courseId) => {
-    const sql = 'SELECT * FROM enrollment WHERE userId = ? AND courseId = ?';
+    const sql = "SELECT * FROM enrollment WHERE userId = ? AND courseId = ?";
     const enrollments = await query(sql, [userId, courseId]);
     return enrollments[0];
   },
@@ -39,5 +40,5 @@ export const EnrollmentModel = {
       ORDER BY e.lastAccesed DESC
     `;
     return query(sql, [userId]);
-  }
+  },
 };

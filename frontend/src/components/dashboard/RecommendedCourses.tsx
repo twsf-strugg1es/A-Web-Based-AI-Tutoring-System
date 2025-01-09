@@ -19,7 +19,7 @@ export function RecommendedCourses({ courses }: Props) {
 
   // Filter out interests with less than 3 courses
   const validInterests = Object.entries(coursesByInterest)
-    .filter(([_, courses]) => courses.length >= 3)
+    
     .sort((a, b) => b[1].length - a[1].length); // Sort by number of courses
 
   if (validInterests.length === 0) {

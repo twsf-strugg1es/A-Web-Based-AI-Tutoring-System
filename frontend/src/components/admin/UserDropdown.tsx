@@ -52,7 +52,7 @@ export function UserDropdown() {
               </p>
             </div>
 
-            <div className="py-1">
+            {/* <div className="py-1">
               <button
                 onClick={() => setIsOpen(false)}
                 className="w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 flex items-center"
@@ -60,7 +60,7 @@ export function UserDropdown() {
                 <Settings className="w-4 h-4 mr-2" />
                 Settings
               </button>
-            </div>
+            </div> */}
 
             <div className="py-1 border-t border-gray-100">
               <button

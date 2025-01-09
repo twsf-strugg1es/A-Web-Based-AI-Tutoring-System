@@ -1,17 +1,29 @@
-import { Maximize2, Minimize2 } from 'lucide-react';
-import { VideoPlayer } from '../VideoPlayer';
+import { Maximize2, Minimize2 } from "lucide-react";
+import { VideoPlayer } from "../VideoPlayer";
+import { ChapterProgress } from "../../../services/chapterProgress";
 
 
 interface VideoSectionProps {
   isMaximized: boolean;
   onToggleMaximize: () => void;
   link: string;
+  handleVideoProgress: (progress: number,timeStamp:number) => Promise<void>;
+  progress:ChapterProgress;
+  currentVideoInfo:any;
+  setCurrentVideoInfo: React.Dispatch<any>
 }
 
-export function VideoSection({ isMaximized, onToggleMaximize, link }: VideoSectionProps) {
+export function VideoSection({
+  isMaximized,
+  onToggleMaximize,
+  link,
+  handleVideoProgress,
+  progress,currentVideoInfo,
+  setCurrentVideoInfo
+}: VideoSectionProps) {
   return (
-    <div className={`relative ${isMaximized ? 'h-full' : 'h-[60vh]'}`}>
-      <VideoPlayer videoUrl={link} />
+    <div className={`relative ${isMaximized ? "h-full" : "h-[60vh]"}`}>
+      <VideoPlayer videoUrl={link} handleVideoProgress={handleVideoProgress} progress={progress} currentVideoInfo={currentVideoInfo} setCurrentVideoInfo={setCurrentVideoInfo}/>
 
       <button
         onClick={onToggleMaximize}

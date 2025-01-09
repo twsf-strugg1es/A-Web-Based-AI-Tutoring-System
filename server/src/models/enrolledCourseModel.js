@@ -1,4 +1,8 @@
+<<<<<<< Updated upstream
 import { query } from '../config/database.js';
+=======
+import { query } from "../config/database.js";
+>>>>>>> Stashed changes
 
 export const EnrolledCourseModel = {
   findByUserId: async (userId) => {
@@ -21,6 +25,7 @@ export const EnrolledCourseModel = {
 
   getChapterProgress: async (userId, courseId) => {
     const sql = `
+<<<<<<< Updated upstream
       SELECT 
         ch.id,
         ch.title,
@@ -41,3 +46,25 @@ export const EnrolledCourseModel = {
     return query(sql, [userId, courseId]);
   }
 };
+=======
+        SELECT 
+            ch.id,
+            ch.title,
+            COALESCE(
+                GREATEST(
+                    COALESCE(ucp.progress_video, 0),
+                    COALESCE(ucp.progress_mcq, 0)
+                ),
+                0
+            ) AS progress
+        FROM chapter ch
+        LEFT JOIN user_chapter_progress ucp 
+            ON ch.id = ucp.chapterId COLLATE utf8mb4_general_ci
+            AND ucp.userId = ? COLLATE utf8mb4_general_ci
+        WHERE ch.course_id = ? COLLATE utf8mb4_general_ci
+        ORDER BY ch.order ASC;
+    `;
+    return query(sql, [userId, courseId]);
+},
+};
+>>>>>>> Stashed changes

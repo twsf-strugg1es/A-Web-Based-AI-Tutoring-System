@@ -1,4 +1,50 @@
+<<<<<<< Updated upstream
 2025-01-09T04:33:21.406Z [[32minfo[39m]: Inserting new chapter with id 646bbe35-7292-4b75-b531-3bdcb6c35d3f for courseId e87fef61-cd53-4c84-9c5f-0e2e21e0a090
 2025-01-09T04:33:21.412Z [[32minfo[39m]: Inserting new chapter with id 331b857c-0673-492f-8f97-2c620d3f3711 for courseId e87fef61-cd53-4c84-9c5f-0e2e21e0a090
 2025-01-09T04:36:40.522Z [[32minfo[39m]: Inserting new chapter with id 804aaa3e-dcd2-44ef-a133-aa612e7a8131 for courseId 6549f956-1f65-4ea7-9fa9-c376e2eebba3
 2025-01-09T04:36:40.525Z [[32minfo[39m]: Inserting new chapter with id a46848a3-9827-4257-968c-1a88b3ac81a2 for courseId 6549f956-1f65-4ea7-9fa9-c376e2eebba3
+=======
+2025-01-08T16:06:04.109Z [[32minfo[39m]: Inserting new chapter with id 56b05ed0-5d75-4d20-8a20-24ad4f742557 for courseId a09b84be-7de4-41e3-a0b6-03267f3c8b6d
+2025-01-08T16:06:04.116Z [[32minfo[39m]: Inserting new chapter with id a1eeae19-29ea-45f1-90d7-c5564068c1d0 for courseId a09b84be-7de4-41e3-a0b6-03267f3c8b6d
+2025-01-08T16:06:04.119Z [[32minfo[39m]: Inserting new chapter with id a8352ac6-cf00-49bb-af5b-ba7d40161767 for courseId a09b84be-7de4-41e3-a0b6-03267f3c8b6d
+2025-01-09T07:53:10.679Z [[32minfo[39m]: Updating chapter with id 58ab7dfd-3442-46a9-962e-5bfb46d2f3e9 for courseId 65857080-8444-4309-935d-84de317e7abe
+2025-01-09T07:53:10.687Z [[32minfo[39m]: Updating chapter with id 12c3811f-a84a-4618-b9c9-ba74c1eb5922 for courseId 65857080-8444-4309-935d-84de317e7abe
+2025-01-09T07:53:20.303Z [[32minfo[39m]: Updating chapter with id 6d7446df-10d7-43ea-aaf8-7a3f0e9eb211 for courseId 43892d65-e7d4-4aab-9eb0-e98cfe6e6e00
+2025-01-09T07:53:20.308Z [[32minfo[39m]: Updating chapter with id e5136a44-f934-4f77-8a40-c67fe8f1b6e1 for courseId 43892d65-e7d4-4aab-9eb0-e98cfe6e6e00
+2025-01-09T07:53:20.313Z [[32minfo[39m]: Updating chapter with id 5474bcf6-a589-42f4-ba09-a6ec26af1969 for courseId 43892d65-e7d4-4aab-9eb0-e98cfe6e6e00
+2025-01-09T07:53:20.317Z [[32minfo[39m]: Updating chapter with id 336ed819-2895-41a3-999d-634029cb64d7 for courseId 43892d65-e7d4-4aab-9eb0-e98cfe6e6e00
+2025-01-09T07:53:20.322Z [[32minfo[39m]: Updating chapter with id a89aebbf-7286-491a-b5f5-9bdf5dfef6d4 for courseId 43892d65-e7d4-4aab-9eb0-e98cfe6e6e00
+2025-01-09T07:53:59.359Z [[32minfo[39m]: Updating chapter with id 75e26649-8ec8-43f8-a33c-fc007283abfc for courseId 9cb4641f-1f16-4e3c-9dac-78aaf9d91dfc
+2025-01-09T07:53:59.362Z [[32minfo[39m]: Updating chapter with id 30443b23-00b3-4f76-a2a9-db5f89ec97f1 for courseId 9cb4641f-1f16-4e3c-9dac-78aaf9d91dfc
+2025-01-09T07:54:24.134Z [[32minfo[39m]: Course with id 54361f11-6fc0-4c81-906b-8b615a3ad21a deleted successfully
+2025-01-09T07:54:53.835Z [[32minfo[39m]: Updating chapter with id 75e26649-8ec8-43f8-a33c-fc007283abfc for courseId 9cb4641f-1f16-4e3c-9dac-78aaf9d91dfc
+2025-01-09T07:54:53.841Z [[32minfo[39m]: Updating chapter with id 30443b23-00b3-4f76-a2a9-db5f89ec97f1 for courseId 9cb4641f-1f16-4e3c-9dac-78aaf9d91dfc
+2025-01-09T07:55:19.259Z [[32minfo[39m]: Updating chapter with id fdb6448d-0c78-4c79-b8d5-d62051c99a0c for courseId a82cd26b-ac75-4b18-a0d5-f7ee7f803184
+2025-01-09T07:55:19.263Z [[32minfo[39m]: Updating chapter with id 95b0323a-3ca4-401a-92aa-11d54a0fe8e3 for courseId a82cd26b-ac75-4b18-a0d5-f7ee7f803184
+2025-01-09T07:55:28.403Z [[32minfo[39m]: Updating chapter with id 69664d41-97f4-4a6a-a4c4-6cac6adcb658 for courseId d3ef6eed-a441-4bb6-8d9e-20f95521f764
+2025-01-09T07:55:28.410Z [[32minfo[39m]: Updating chapter with id 62ee71c7-0f42-4fa6-a604-48c48a80f26d for courseId d3ef6eed-a441-4bb6-8d9e-20f95521f764
+2025-01-09T07:56:19.953Z [[32minfo[39m]: Updating chapter with id 2f281516-e834-4137-9aef-588ca73bdbe7 for courseId ff4ae1c5-00d8-4eca-8127-78980f5cf8b6
+2025-01-09T07:56:19.956Z [[32minfo[39m]: Updating chapter with id b17a1767-edf1-4b8f-a982-34818d19f69e for courseId ff4ae1c5-00d8-4eca-8127-78980f5cf8b6
+2025-01-09T07:56:44.928Z [[32minfo[39m]: Updating chapter with id 29574975-ec72-4f33-a498-6ff367201201 for courseId 67c533b7-b0c7-11ef-aeb2-d8bbc114656c
+2025-01-09T07:56:44.931Z [[32minfo[39m]: Updating chapter with id 5a9c845a-d9cf-4b17-951f-d14cf43f6e5f for courseId 67c533b7-b0c7-11ef-aeb2-d8bbc114656c
+2025-01-09T07:56:54.708Z [[32minfo[39m]: Updating chapter with id 2f281516-e834-4137-9aef-588ca73bdbe7 for courseId ff4ae1c5-00d8-4eca-8127-78980f5cf8b6
+2025-01-09T07:56:54.713Z [[32minfo[39m]: Updating chapter with id b17a1767-edf1-4b8f-a982-34818d19f69e for courseId ff4ae1c5-00d8-4eca-8127-78980f5cf8b6
+2025-01-09T07:57:09.034Z [[32minfo[39m]: Updating chapter with id e79ec129-5f79-4b13-8258-cd2f40228837 for courseId 67c6c323-b0c7-11ef-aeb2-d8bbc114656c
+2025-01-09T07:57:09.037Z [[32minfo[39m]: Updating chapter with id 6d075509-3f9a-478c-81b4-c54ec6108705 for courseId 67c6c323-b0c7-11ef-aeb2-d8bbc114656c
+2025-01-09T07:57:22.453Z [[32minfo[39m]: Updating chapter with id 824b5e04-82d8-438f-b6b7-65915f779fd3 for courseId 67c1f7d8-b0c7-11ef-aeb2-d8bbc114656c
+2025-01-09T07:57:22.460Z [[32minfo[39m]: Updating chapter with id 1905c0be-bed0-11ef-8b91-d8bbc114656c for courseId 67c1f7d8-b0c7-11ef-aeb2-d8bbc114656c
+2025-01-09T07:57:22.465Z [[32minfo[39m]: Updating chapter with id 78258f78-c5b6-4f93-8c6c-851f74925691 for courseId 67c1f7d8-b0c7-11ef-aeb2-d8bbc114656c
+2025-01-09T07:57:37.396Z [[32minfo[39m]: Updating chapter with id 27a5906f-5ee3-47f0-9d04-4d7b0c8ce534 for courseId 67c1fb38-b0c7-11ef-aeb2-d8bbc114656c
+2025-01-09T07:57:37.401Z [[32minfo[39m]: Updating chapter with id ca61bc6a-f80f-4a9f-b147-e637f4ef5bc8 for courseId 67c1fb38-b0c7-11ef-aeb2-d8bbc114656c
+2025-01-09T07:57:46.517Z [[32minfo[39m]: Updating chapter with id 31296bab-9e3c-486e-a310-89340ebef9d5 for courseId 67c1fb58-b0c7-11ef-aeb2-d8bbc114656c
+2025-01-09T07:57:46.523Z [[32minfo[39m]: Updating chapter with id 2441784a-e99e-49a4-a7d7-666b12e68adb for courseId 67c1fb58-b0c7-11ef-aeb2-d8bbc114656c
+2025-01-09T07:57:58.660Z [[32minfo[39m]: Updating chapter with id f5171397-5423-4676-b481-27f1d10eed89 for courseId 67c1fc67-b0c7-11ef-aeb2-d8bbc114656c
+2025-01-09T07:57:58.667Z [[32minfo[39m]: Updating chapter with id 95cff500-d6f7-47dd-b8cc-0b00c88cb5d2 for courseId 67c1fc67-b0c7-11ef-aeb2-d8bbc114656c
+2025-01-09T07:58:14.920Z [[32minfo[39m]: Updating chapter with id a94f1f41-6c53-4b71-8994-c1d642ce52ac for courseId 67c6c73b-b0c7-11ef-aeb2-d8bbc114656c
+2025-01-09T07:58:14.923Z [[32minfo[39m]: Updating chapter with id 38b78cd9-0dbe-4cc4-b3c8-fbaa035470a4 for courseId 67c6c73b-b0c7-11ef-aeb2-d8bbc114656c
+2025-01-09T07:58:33.611Z [[32minfo[39m]: Updating chapter with id 3f7dbec0-42a0-4bdc-bfce-c434d64a9364 for courseId 67c9dba1-b0c7-11ef-aeb2-d8bbc114656c
+2025-01-09T07:58:33.613Z [[32minfo[39m]: Updating chapter with id 1b7462f1-9e2e-4240-9e0b-9cb2a4b6c1d3 for courseId 67c9dba1-b0c7-11ef-aeb2-d8bbc114656c
+2025-01-09T07:58:47.650Z [[32minfo[39m]: Updating chapter with id d5d03f96-0702-481a-a5cb-7c480c6c41f3 for courseId 67c9dbdc-b0c7-11ef-aeb2-d8bbc114656c
+2025-01-09T07:58:47.654Z [[32minfo[39m]: Updating chapter with id 46fe3979-f229-4bae-a17c-f8d78b47d83d for courseId 67c9dbdc-b0c7-11ef-aeb2-d8bbc114656c
+2025-01-09T07:58:57.877Z [[32minfo[39m]: Updating chapter with id 90290bfb-632e-45fa-a255-c169490aac8b for courseId 67c9db3b-b0c7-11ef-aeb2-d8bbc114656c
+>>>>>>> Stashed changes

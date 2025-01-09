@@ -186,5 +186,34 @@ findCourseWithChapters: async (courseId) => {
   };
   
   return course;
+},
+findCourseOverview: async (courseId) => {
+  const sql = `
+    SELECT 
+      c.*,
+      JSON_ARRAYAGG(
+        JSON_OBJECT(
+          'id', ch.id,
+          'title', ch.title,
+          'duration', ch.duration,
+          'isCompleted', ch.isCompleted,
+          'order', ch.order
+        )
+      ) as chapters
+    FROM course c
+    LEFT JOIN chapter ch ON c.id = ch.course_id
+    WHERE c.id = ?
+    GROUP BY c.id
+  `;
+
+  const [course] = await query(sql, [courseId]);
+  if (!course) return null;
+
+  // Parse chapters from JSON string
+  course.chapters = JSON.parse(course.chapters || '[]')
+    .filter(ch => ch.id) // Remove null chapters
+    .sort((a, b) => a.order - b.order);
+
+  return course;
 }
 };

@@ -1,12 +1,13 @@
-import { query } from '../config/database.js';
+import { query } from "../config/database.js";
 
 export const DashboardModel = {
   getContinueLearning: async (userId) => {
     const sql = `
       SELECT 
         c.*,
+        e.id as enrollmentId,
         e.progress,
-        e.lastAccesed,
+        e.lastAccessed,
         i.name as interestName,
         i.id as interestId
       FROM enrollment e
@@ -14,13 +15,15 @@ export const DashboardModel = {
       LEFT JOIN courses_interests ci ON c.id = ci.courseId
       LEFT JOIN interest i ON ci.interestId = i.id
       WHERE e.userId = ? AND e.progress < 100
-      ORDER BY e.lastAccesed DESC
+      ORDER BY e.lastAccessed DESC
       LIMIT 6
     `;
     return query(sql, [userId]);
   },
 
   getRecommendedCourses: async (userId) => {
+    console.log('User ID passed to getRecommendedCourses:', userId);  // Log userId
+    
     const sql = `
       WITH UserInterests AS (
         SELECT DISTINCT i.id as interestId, i.name as interestName
@@ -50,8 +53,9 @@ export const DashboardModel = {
         enrollmentCount DESC
       LIMIT 30
     `;
+    
     return query(sql, [userId, userId]);
-  },
+},
 
   getExploreNewSkills: async (userId) => {
     const sql = `
@@ -87,5 +91,5 @@ export const DashboardModel = {
       ORDER BY c.rating DESC, c.students DESC
     `;
     return query(sql, [userId, userId]);
-  }
+  },
 };

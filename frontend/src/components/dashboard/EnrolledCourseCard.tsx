@@ -1,8 +1,8 @@
-import { motion } from 'framer-motion';
-import { Clock, Users, Star } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
-import { Course } from '../../services/course';
-import { CourseProgress } from './CourseProgress';
+import { motion } from "framer-motion";
+import { Clock, Users, Star } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import { Course } from "../../services/course";
+import { CourseProgress } from "./CourseProgress";
 
 interface Props {
   course: Course;
@@ -13,6 +13,7 @@ export function EnrolledCourseCard({ course }: Props) {
 
   const handleCardClick = () => {
     navigate(`/course/${course.id}`);
+    localStorage.setItem("currentEnrollmentId", course.enrollmentId as string);
   };
 
   return (
@@ -35,18 +36,8 @@ export function EnrolledCourseCard({ course }: Props) {
         <h3 className="text-lg font-semibold text-gray-900 mb-2 line-clamp-2">
           {course.title}
         </h3>
-        <p className="text-sm text-gray-600 mb-4">
-          {course.instructor}
-        </p>
+        <p className="text-sm text-gray-600 mb-4">{course.instructor}</p>
         <div className="flex items-center justify-between text-sm text-gray-500 mb-4">
-          <div className="flex items-center">
-            <Clock className="w-4 h-4 mr-1" />
-            {course.duration}
-          </div>
-          <div className="flex items-center">
-            <Users className="w-4 h-4 mr-1" />
-            {course.students.toLocaleString()}
-          </div>
           <div className="flex items-center">
             <Star className="w-4 h-4 mr-1 text-yellow-400" />
             {course.rating.toFixed(1)}

@@ -125,7 +125,7 @@ export function CourseList() {
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                     <div className="flex items-center space-x-4">
-                      <button className="relative p-2 text-gray-400 hover:text-blue-900 transition-colors">
+                      <button className="relative p-2 text-gray-400">
                         <MessageSquare className="w-5 h-5" />
                         {course.unreadFeedback > 0 && (
                           <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center">

@@ -1,5 +1,5 @@
-import { X, Pencil, Maximize2 } from 'lucide-react';
-import { Whiteboard } from '../Whiteboard';
+import { X, Pencil, Maximize2 } from "lucide-react";
+import { Whiteboard } from "../Whiteboard";
 
 interface WhiteboardPanelProps {
   isOpen: boolean;
@@ -7,14 +7,18 @@ interface WhiteboardPanelProps {
   isPopup?: boolean;
   onClose?: () => void;
   onMaximize?: () => void;
+  courseId: string;
+  chapterId: string;
 }
 
-export function WhiteboardPanel({ 
-  isOpen, 
-  onToggle, 
-  isPopup = false, 
+export function WhiteboardPanel({
+  isOpen,
+  onToggle,
+  isPopup = false,
   onClose,
-  onMaximize
+  onMaximize,
+  courseId,
+  chapterId,
 }: WhiteboardPanelProps) {
   if (isPopup && isOpen) {
     return (
@@ -27,7 +31,7 @@ export function WhiteboardPanel({
           >
             <X className="w-5 h-5" />
           </button>
-          <Whiteboard />
+          <Whiteboard courseId={courseId} chapterId={chapterId} />
         </div>
       </div>
     );
@@ -45,7 +49,7 @@ export function WhiteboardPanel({
 
       <div
         className={`fixed top-1/2 -translate-y-1/2 right-0 transition-all duration-300 z-50 ${
-          isOpen ? 'w-96 bg-white shadow-lg h-[600px]' : 'w-0'
+          isOpen ? "w-96 bg-white shadow-lg h-[600px]" : "w-0"
         }`}
       >
         {isOpen && (
@@ -58,15 +62,8 @@ export function WhiteboardPanel({
               >
                 <X className="w-5 h-5" />
               </button>
-              <button
-                onClick={onMaximize}
-                className="p-2 hover:bg-gray-100 rounded-full transition-colors"
-                aria-label="Maximize whiteboard"
-              >
-                <Maximize2 className="w-5 h-5" />
-              </button>
             </div>
-            <Whiteboard />
+            <Whiteboard courseId={courseId} chapterId={chapterId} />
           </div>
         )}
       </div>

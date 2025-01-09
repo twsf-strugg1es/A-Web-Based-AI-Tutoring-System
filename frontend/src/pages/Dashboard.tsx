@@ -1,23 +1,25 @@
-import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { toast } from 'react-hot-toast';
-import { CourseService, Course, DashboardData } from '../services/course';
-import { ContinueLearning } from '../components/dashboard/ContinueLearning';
-import { RecommendedCourses } from '../components/dashboard/RecommendedCourses';
-import { ExploreSkills } from '../components/dashboard/ExploreSkills';
-import { SearchBar } from '../components/dashboard/SearchBar';
-import { UserProfileDropdown } from '../components/dashboard/UserProfileDropdown';
-import { NotificationDropdown } from '../components/dashboard/NotificationDropdown';
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-hot-toast";
+import { CourseService, Course, DashboardData } from "../services/course";
+import { ContinueLearning } from "../components/dashboard/ContinueLearning";
+import { RecommendedCourses } from "../components/dashboard/RecommendedCourses";
+import { ExploreSkills } from "../components/dashboard/ExploreSkills";
+import { SearchBar } from "../components/dashboard/SearchBar";
+import { UserProfileDropdown } from "../components/dashboard/UserProfileDropdown";
+import { NotificationDropdown } from "../components/dashboard/NotificationDropdown";
 
 export function Dashboard() {
-  const [dashboardData, setDashboardData] = useState<DashboardData | null>(null);
+  const [dashboardData, setDashboardData] = useState<DashboardData | null>(
+    null
+  );
   const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem("token");
     if (!token) {
-      navigate('/sign-in');
+      navigate("/sign-in");
       return;
     }
 
@@ -28,6 +30,7 @@ export function Dashboard() {
     try {
       const data = await CourseService.getDashboardData();
       setDashboardData(data);
+      console.log(data);
     } catch (error: any) {
       toast.error(error.message);
     } finally {
@@ -36,7 +39,11 @@ export function Dashboard() {
   };
 
   if (isLoading) {
-    return <div className="min-h-screen flex items-center justify-center">Loading...</div>;
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        Loading...
+      </div>
+    );
   }
 
   return (
@@ -61,7 +68,7 @@ export function Dashboard() {
         )}
 
         <RecommendedCourses courses={dashboardData?.recommended || []} />
-        
+
         {dashboardData?.exploreNewSkills.length > 0 && (
           <ExploreSkills courses={dashboardData.exploreNewSkills} />
         )}
