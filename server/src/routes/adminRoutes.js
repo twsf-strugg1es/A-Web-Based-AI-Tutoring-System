@@ -12,6 +12,8 @@ router.get('/dashboard/stats', asyncHandler(AdminController.getDashboardStats));
 router.get('/courses', asyncHandler(AdminController.getCoursesList));
 router.put('/courses/:courseId/status', asyncHandler(AdminController.updateCourseStatus));
 router.get('/courses/:courseId/feedback', asyncHandler(AdminController.getCourseFeedback));
+router.get('/reviews/unread', asyncHandler(AdminController.getUnreadReviews));
+router.put('/reviews/:reviewId/mark-read', asyncHandler(AdminController.markReviewAsRead));
 
 // New route for course creation
 router.post('/courses', asyncHandler(AdminController.createCourse));

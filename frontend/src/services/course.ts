@@ -1,5 +1,22 @@
 import api from './api';
 
+export interface EnrolledCourse extends Course {
+  chapters: {
+    id: string;
+    title: string;
+    progress: number;
+  }[];
+  overallProgress: number;
+}
+
+export interface EnrolledCoursesResponse {
+  success: boolean;
+  data?: EnrolledCourse[];
+  error?: {
+    message: string;
+  };
+}
+
 export interface Course {
   id: string;
   title: string;
@@ -22,7 +39,7 @@ export interface DashboardData {
   recommended: Course[];
   exploreNewSkills: Course[];
 }
-// Add these interfaces to the existing file
+
 export interface CourseDetails extends Course {
   chapters: ChapterDetails[];
 }
@@ -35,8 +52,6 @@ export interface ChapterDetails {
   order: number;
 }
 
-// Add this method to the CourseService object
-
 export const CourseService = {
   getAllCourses: async (): Promise<Course[]> => {
     try {
@@ -47,6 +62,7 @@ export const CourseService = {
       return [];
     }
   },
+
   getCourseDetails: async (courseId: string): Promise<CourseDetails | null> => {
     try {
       const response = await api.get(`/courses/${courseId}/details`);
@@ -56,6 +72,7 @@ export const CourseService = {
       return null;
     }
   },
+
   getDashboardData: async (): Promise<DashboardData> => {
     try {
       const response = await api.get('/dashboard');
@@ -91,6 +108,19 @@ export const CourseService = {
     } catch (error: any) {
       throw new Error(error.response?.data?.error?.message || 'Error updating progress');
     }
-  }
-};
+  },
 
+  getEnrolledCourses: async (): Promise<EnrolledCoursesResponse> => {
+    try {
+      const response = await api.get('/courses/enrolled');
+      return response.data;
+    } catch (error: any) {
+      return {
+        success: false,
+        error: {
+          message: error.response?.data?.error?.message || 'Error fetching enrolled courses',
+        },
+      };
+    }
+  },
+};

@@ -12,7 +12,7 @@ import { CourseView } from './pages/CourseView';
 import { CourseSetupPage } from './pages/CourseSetupPage';
 import { ChapterDetailsPage } from './pages/ChapterDetailsPage';
 import { ProtectedRoute } from './components/ProtectedRoute';
-
+import { MyLearning } from './pages/MyLearning';
 export function App() {
   return (
     <Router>
@@ -38,6 +38,8 @@ export function App() {
               </ProtectedRoute>
             } 
           />
+         
+          
           <Route 
             path="/admin" 
             element={
@@ -68,6 +70,14 @@ export function App() {
             element={
               <ProtectedRoute>
                 <CourseView />
+              </ProtectedRoute>
+            } 
+          />
+          <Route 
+            path="/my-learning" 
+            element={
+              <ProtectedRoute>
+                <MyLearning />
               </ProtectedRoute>
             } 
           />

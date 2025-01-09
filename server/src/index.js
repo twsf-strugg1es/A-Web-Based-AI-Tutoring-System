@@ -13,7 +13,8 @@ import notificationRoutes from "./routes/notificationRoutes.js";
 import adminRoutes from "./routes/adminRoutes.js";
 import courseSetupRoutes from "./routes/courseSetupRoutes.js";
 import chat from "./routes/chat.js";
-
+import interestRoutes from "./routes/interestRoutes.js";
+import enrolledCourseRoutes from "./routes/enrolledCourseRoutes.js";
 config();
 
 const app = express();
@@ -48,7 +49,8 @@ app.use("/api/notifications", notificationRoutes);
 app.use("/api/admin", adminRoutes);
 app.use("/api/course-setup", courseSetupRoutes);
 app.use("/api/chat", chat);
-
+app.use("/api/interests", interestRoutes);
+app.use('/api/courses', enrolledCourseRoutes);
 // Error handling
 app.use(notFoundHandler);
 app.use(errorHandler);
