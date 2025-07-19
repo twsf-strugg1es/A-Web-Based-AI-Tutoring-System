@@ -1,6 +1,14 @@
+<<<<<<< Updated upstream
+import { UserModel } from '../models/userModel.js';
+import { AdminCourseModel } from '../models/adminModel.js';
+import { v4 as uuidv4 } from 'uuid';
+import { ReviewModel } from '../models/reviewModel.js';
+
+=======
 import { UserModel } from "../models/userModel.js";
 import { AdminCourseModel } from "../models/adminModel.js";
 import { v4 as uuidv4 } from "uuid";
+>>>>>>> Stashed changes
 
 export const AdminController = {
   getDashboardStats: async (req, res) => {

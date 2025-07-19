@@ -15,11 +15,14 @@ import { CourseService, CourseDetails } from "../services/course";
 import CourseViewNavbar from "../components/course/CourseViewNavbar";
 import { useChat } from "../components/course/ai-help/hooks/useChat";
 import AiMcq from "../components/course/AiMcq";
+<<<<<<< Updated upstream
+=======
 import { useChapterProgress } from "../hooks/useChapterProgress";
 import {
   ChapterProgress,
   ChapterProgressService,
 } from "../services/chapterProgress";
+>>>>>>> Stashed changes
 
 export function CourseView() {
   const { id: courseId } = useParams<{ id: string }>();
@@ -32,6 +35,9 @@ export function CourseView() {
   );
   const [isCourseLoading, setIsCourseLoading] = useState(true);
   const [currentChapterIndex, setCurrentChapterIndex] = useState(0);
+<<<<<<< Updated upstream
+  const { messages, isTyping, sendMessage } = useChat();
+=======
   const [prevChapterId, setPrevChapterId] = useState<string | null>(null);
   const { messages, isTyping, sendMessage } = useChat();
   const [enrollmentId, setEnrollmentId] = useState<string>("");
@@ -39,6 +45,7 @@ export function CourseView() {
     duration: 0,
     currentTime: 0,
   });
+>>>>>>> Stashed changes
 
   const currentChapter = courseDetails?.chapters[currentChapterIndex];
   const {
@@ -129,6 +136,22 @@ export function CourseView() {
     );
   }
 
+<<<<<<< Updated upstream
+  const currentChapter = courseDetails.chapters[currentChapterIndex];
+  const handleChapterIdxChange = (index: number) => {
+    setCurrentChapterIndex(index);
+    // setMessages([
+    //   {
+    //     id: "1",
+    //     content: `Anything you need for this ${courseDetails.chapters[index].title}?`,
+    //     sender: "ai",
+    //     timestamp: new Date(),
+    //   },
+    // ]);
+  };
+
+=======
+>>>>>>> Stashed changes
   return (
     <div className="min-h-screen bg-gray-50">
       <CourseViewNavbar
@@ -173,6 +196,16 @@ export function CourseView() {
                     courseChapterText={currentChapter.textNote || ""}
                   />
                 )}
+<<<<<<< Updated upstream
+                {activeTab === "reviews" && <CourseReviews />}
+                {activeTab === "MCQ" && <AiMcq 
+                chapterText={
+                  courseDetails.chapters[currentChapterIndex]
+                    .textNote as string
+                }
+                />}
+                {activeTab === "ai" && (
+=======
                 {activeTab === "reviews" && (
                   <CourseReviews courseId={courseId as string} />
                 )}
@@ -183,6 +216,7 @@ export function CourseView() {
                   />
                 )}
                 {activeTab === "ai" && currentChapter && (
+>>>>>>> Stashed changes
                   <AiHelp
                     key={currentChapterIndex}
                     messages={messages}

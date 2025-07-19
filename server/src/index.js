@@ -14,11 +14,15 @@ import adminRoutes from "./routes/adminRoutes.js";
 import courseSetupRoutes from "./routes/courseSetupRoutes.js";
 import chat from "./routes/chat.js";
 import interestRoutes from "./routes/interestRoutes.js";
+<<<<<<< Updated upstream
+import enrolledCourseRoutes from "./routes/enrolledCourseRoutes.js";
+=======
 import chapterProgressRoutes from "./routes/chapterProgressRoutes.js";
 import enrolledCourseRoutes from "./routes/enrolledCourseRoutes.js";
 import courseRatingRoutes from "./routes/courseRatingRoutes.js";
 import feedbackRoutes from "./routes/feedbackRoutes.js";
 import whiteboardRoutes from "./routes/whiteboardRoutes.js";
+>>>>>>> Stashed changes
 config();
 
 const app = express();
@@ -54,11 +58,15 @@ app.use("/api/admin", adminRoutes);
 app.use("/api/course-setup", courseSetupRoutes);
 app.use("/api/chat", chat);
 app.use("/api/interests", interestRoutes);
+<<<<<<< Updated upstream
+app.use('/api/courses', enrolledCourseRoutes);
+=======
 app.use("/api/progress", chapterProgressRoutes);
 app.use("/api/courses", enrolledCourseRoutes);
 app.use("/api/courses", courseRatingRoutes);
 app.use("/api/courses", feedbackRoutes);
 app.use("/api/whiteboard", whiteboardRoutes);
+>>>>>>> Stashed changes
 // Error handling
 app.use(notFoundHandler);
 app.use(errorHandler);

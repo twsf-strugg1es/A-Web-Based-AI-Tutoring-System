@@ -25,6 +25,12 @@ export const WhiteboardController = {
     try {
       const { userId } = req.user;
       const drawings = await WhiteboardModel.getAllDrawings(userId);
+<<<<<<< Updated upstream
+      
+      res.json({
+        success: true,
+        data: drawings
+=======
 
       const newDrawings = drawings.map(drawing=>{
         return {...drawing, drawing:Buffer.from(drawing.drawing).toString('base64')}
@@ -33,6 +39,7 @@ export const WhiteboardController = {
       res.json({
         success: true,
         data: newDrawings
+>>>>>>> Stashed changes
       });
     } catch (error) {
       res.status(500).json({

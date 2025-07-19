@@ -38,6 +38,9 @@ export function UserProfileDropdown({
     setIsOpen(false);
   };
 
+<<<<<<< Updated upstream
+  const user = JSON.parse(localStorage.getItem('user') || '{}');
+=======
   const handleOpen = () => {
     console.log(pathname)
     if(pathname.startsWith('/course')){
@@ -50,6 +53,7 @@ export function UserProfileDropdown({
   };
 
   const user = JSON.parse(localStorage.getItem("user") || "{}");
+>>>>>>> Stashed changes
 
   return (
     <div className="relative" ref={dropdownRef}>
@@ -65,24 +69,42 @@ export function UserProfileDropdown({
           <div className="px-4 py-3 border-b border-gray-100">
             <p className="text-sm font-medium text-gray-900">
               {user.firstName} {user.lastName}
+<<<<<<< Updated upstream
+            </p>
+            <p className="text-sm text-gray-500 truncate">
+              {user.email}
+=======
+>>>>>>> Stashed changes
             </p>
             <p className="text-sm text-gray-500 truncate">{user.email}</p>
           </div>
 
           <div className="py-1">
             <button
+<<<<<<< Updated upstream
+              onClick={() => handleNavigation('/my-learning')}
+=======
               onClick={() => handleNavigation("/my-learning")}
+>>>>>>> Stashed changes
               className="w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 flex items-center"
             >
               <BookOpen className="w-4 h-4 mr-2" />
               My Learning
             </button>
             <button
+<<<<<<< Updated upstream
+              onClick={() => handleNavigation('/settings')}
+              className="w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 flex items-center"
+            >
+              <Settings className="w-4 h-4 mr-2" />
+              Settings
+=======
               onClick={() => handleNavigation('/inventory')}
               className="w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 flex items-center"
             >
               <Pencil className="w-4 h-4 mr-2" />
               Whiteboard Inventory
+>>>>>>> Stashed changes
             </button>
             
           </div>
