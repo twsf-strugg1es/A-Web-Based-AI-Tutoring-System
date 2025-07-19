@@ -33,9 +33,9 @@ export const EnrolledCourseModel = {
             ) AS progress
         FROM chapter ch
         LEFT JOIN user_chapter_progress ucp 
-            ON ch.id = ucp.chapterId COLLATE utf8mb4_general_ci
-            AND ucp.userId = ? COLLATE utf8mb4_general_ci
-        WHERE ch.course_id = ? COLLATE utf8mb4_general_ci
+            ON ch.id = ucp.chapterId
+            AND ucp.userId = ?
+        WHERE ch.course_id = ?
         ORDER BY ch.order ASC;
     `;
     return query(sql, [userId, courseId]);

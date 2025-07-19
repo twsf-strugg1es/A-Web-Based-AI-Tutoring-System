@@ -143,12 +143,12 @@ export const ChapterProgressModel = {
         `SELECT c.*, e.lastChapterIndex 
          FROM user_chapter_progress c 
          LEFT JOIN enrollment e 
-         ON c.enrollmentId = e.id COLLATE utf8mb4_general_ci 
+         ON c.enrollmentId = e.id
          WHERE c.userId = ? 
            AND c.courseId = ? 
            AND c.chapterId = ? 
-           AND c.enrollmentId = ? COLLATE utf8mb4_general_ci 
-           AND e.id = ? COLLATE utf8mb4_general_ci`,
+           AND c.enrollmentId = ?
+           AND e.id = ?`,
         [userId, courseId, chapterId, enrollmentId, enrollmentId]
       );
 
