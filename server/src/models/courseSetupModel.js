@@ -159,18 +159,6 @@ export const CourseSetupModel = {
       const deleteCourseSql = `
       DELETE FROM course WHERE id = ?
     `;
-<<<<<<< Updated upstream
-    const result = await query(deleteCourseSql, [courseId]); // Assuming `query` returns an object with affected rows
-
-    // Log the number of rows affected
-    if (result.affectedRows > 0) {
-      logger.info(`Course with id ${courseId} deleted successfully`);
-    } else {
-      logger.warn(`No course found with id ${courseId} to delete`);
-    }
-
-    return result.affectedRows; // Return the number of affected rows
-=======
       const result = await query(deleteCourseSql, [courseId]); // Assuming `query` returns an object with affected rows
 
       // Log the number of rows affected
@@ -181,7 +169,6 @@ export const CourseSetupModel = {
       }
 
       return result.affectedRows; // Return the number of affected rows
->>>>>>> Stashed changes
     } catch (error) {
       logger.error(
         `Error deleting course with id ${courseId}: ${error.message}`

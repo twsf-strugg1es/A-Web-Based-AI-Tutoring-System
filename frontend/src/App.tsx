@@ -13,13 +13,10 @@ import { CourseSetupPage } from './pages/CourseSetupPage';
 import { ChapterDetailsPage } from './pages/ChapterDetailsPage';
 import { ProtectedRoute } from './components/ProtectedRoute';
 import { MyLearning } from './pages/MyLearning';
-<<<<<<< Updated upstream
-=======
 
 import { CourseOverview } from './pages/CourseOverview';
 import { WhiteboardInventory } from './pages/WhiteboardInventory';
 
->>>>>>> Stashed changes
 export function App() {
   return (
     <Router>
@@ -89,8 +86,6 @@ export function App() {
               </ProtectedRoute>
             } 
           />
-<<<<<<< Updated upstream
-=======
           <Route path="/inventory" element={
           <ProtectedRoute>
             <WhiteboardInventory />
@@ -105,7 +100,6 @@ export function App() {
               </ProtectedRoute>
             } 
           />
->>>>>>> Stashed changes
         </Routes>
       </CourseSetupProvider>
     </Router>

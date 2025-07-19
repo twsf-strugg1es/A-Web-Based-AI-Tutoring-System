@@ -1,4 +1,4 @@
-import api from './api';
+import api from "./api";
 
 export interface EnrolledCourse extends Course {
   chapters: {
@@ -16,9 +16,6 @@ export interface EnrolledCoursesResponse {
     message: string;
   };
 }
-
-<<<<<<< Updated upstream
-=======
 
 export interface CourseOverviewDetails {
   id: string;
@@ -59,7 +56,6 @@ export interface CourseOverviewResponse {
   };
 }
 
->>>>>>> Stashed changes
 export interface Course {
   id: string;
   title: string;
@@ -67,7 +63,7 @@ export interface Course {
   imageUrl: string;
   instructor: string;
   duration: string;
-  level: 'BEGINNER' | 'INTERMEDIATE' | 'ADVANCED';
+  level: "BEGINNER" | "INTERMEDIATE" | "ADVANCED";
   rating: number;
   students: number;
   interestName?: string;
@@ -75,14 +71,13 @@ export interface Course {
   progress?: number;
   lastAccessed?: string;
   enrollmentCount?: number;
-  enrollmentId?:string;
+  enrollmentId?: string;
 }
 
 export interface DashboardData {
   continueLearning: Course[];
   recommended: Course[];
   exploreNewSkills: Course[];
-  
 }
 
 export interface CourseDetails extends Course {
@@ -100,10 +95,10 @@ export interface ChapterDetails {
 export const CourseService = {
   getAllCourses: async (): Promise<Course[]> => {
     try {
-      const response = await api.get('/courses');
+      const response = await api.get("/courses");
       return response.data.data || [];
     } catch (error: any) {
-      console.error('Error fetching courses:', error);
+      console.error("Error fetching courses:", error);
       return [];
     }
   },
@@ -113,36 +108,42 @@ export const CourseService = {
       const response = await api.get(`/courses/${courseId}/details`);
       return response.data.data;
     } catch (error: any) {
-      console.error('Error fetching course details:', error);
+      console.error("Error fetching course details:", error);
       return null;
     }
   },
 
   getDashboardData: async (): Promise<DashboardData> => {
     try {
-      const response = await api.get('/dashboard');
+      const response = await api.get("/dashboard");
       return response.data.data;
     } catch (error: any) {
-      throw new Error(error.response?.data?.error?.message || 'Error fetching dashboard data');
+      throw new Error(
+        error.response?.data?.error?.message || "Error fetching dashboard data"
+      );
     }
   },
 
   searchCourses: async (query: string): Promise<Course[]> => {
     try {
-      const response = await api.get(`/courses/search?query=${encodeURIComponent(query)}`);
+      const response = await api.get(
+        `/courses/search?query=${encodeURIComponent(query)}`
+      );
       return response.data.data || [];
     } catch (error: any) {
-      console.error('Error searching courses:', error);
+      console.error("Error searching courses:", error);
       return [];
     }
   },
 
   getCoursesByInterest: async (interestIds: string[]): Promise<Course[]> => {
     try {
-      const response = await api.get(`/courses/by-interest?interestIds=${interestIds.join(',')}`);
+      const response = await api.get(
+        `/courses/by-interest?interestIds=${interestIds.join(",")}`
+      );
       return response.data.data || [];
     } catch (error: any) {
-      console.error('Error fetching courses by interest:', error);
+      console.error("Error fetching courses by interest:", error);
       return [];
     }
   },
@@ -151,25 +152,29 @@ export const CourseService = {
     try {
       await api.put(`/courses/${courseId}/progress`, { progress });
     } catch (error: any) {
-      throw new Error(error.response?.data?.error?.message || 'Error updating progress');
+      throw new Error(
+        error.response?.data?.error?.message || "Error updating progress"
+      );
     }
   },
-<<<<<<< Updated upstream
-=======
   getEnrolledCourses: async (): Promise<EnrolledCoursesResponse> => {
     try {
-      const response = await api.get('/courses/enrolled');
+      const response = await api.get("/courses/enrolled");
       return response.data;
     } catch (error: any) {
       return {
         success: false,
         error: {
-          message: error.response?.data?.error?.message || 'Error fetching enrolled courses',
+          message:
+            error.response?.data?.error?.message ||
+            "Error fetching enrolled courses",
         },
       };
     }
   },
-  getCourseOverview: async (courseId: string): Promise<CourseOverviewResponse> => {
+  getCourseOverview: async (
+    courseId: string
+  ): Promise<CourseOverviewResponse> => {
     try {
       const response = await api.get(`/courses/${courseId}/overview`);
       return response.data;
@@ -177,21 +182,25 @@ export const CourseService = {
       return {
         success: false,
         error: {
-          message: error.response?.data?.error?.message || 'Error fetching course overview'
-        }
+          message:
+            error.response?.data?.error?.message ||
+            "Error fetching course overview",
+        },
       };
     }
   },
-  getCourseRatings: async (courseId: string): Promise<CourseRatingsDistribution> => {
+  getCourseRatings: async (
+    courseId: string
+  ): Promise<CourseRatingsDistribution> => {
     try {
       const response = await api.get(`/courses/${courseId}/ratings`);
       return response.data.data;
     } catch (error: any) {
-      console.error('Error fetching course ratings:', error);
+      console.error("Error fetching course ratings:", error);
       return {
         totalRatings: 0,
         averageRating: 0,
-        distribution: { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 }
+        distribution: { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 },
       };
     }
   },
@@ -200,7 +209,9 @@ export const CourseService = {
     try {
       await api.post(`/courses/${courseId}/ratings`, { rating });
     } catch (error: any) {
-      throw new Error(error.response?.data?.error?.message || 'Error submitting rating');
+      throw new Error(
+        error.response?.data?.error?.message || "Error submitting rating"
+      );
     }
   },
 
@@ -212,23 +223,8 @@ export const CourseService = {
       return {
         success: false,
         error: {
-          message: error.response?.data?.error?.message || 'Error enrolling in course'
-        }
-      };
-    }
-  }
-};
->>>>>>> Stashed changes
-
-  getEnrolledCourses: async (): Promise<EnrolledCoursesResponse> => {
-    try {
-      const response = await api.get('/courses/enrolled');
-      return response.data;
-    } catch (error: any) {
-      return {
-        success: false,
-        error: {
-          message: error.response?.data?.error?.message || 'Error fetching enrolled courses',
+          message:
+            error.response?.data?.error?.message || "Error enrolling in course",
         },
       };
     }
