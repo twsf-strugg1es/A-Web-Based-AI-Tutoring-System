@@ -17,8 +17,6 @@ export interface EnrolledCoursesResponse {
   };
 }
 
-<<<<<<< Updated upstream
-=======
 
 export interface CourseOverviewDetails {
   id: string;
@@ -59,7 +57,6 @@ export interface CourseOverviewResponse {
   };
 }
 
->>>>>>> Stashed changes
 export interface Course {
   id: string;
   title: string;
@@ -154,8 +151,6 @@ export const CourseService = {
       throw new Error(error.response?.data?.error?.message || 'Error updating progress');
     }
   },
-<<<<<<< Updated upstream
-=======
   getEnrolledCourses: async (): Promise<EnrolledCoursesResponse> => {
     try {
       const response = await api.get('/courses/enrolled');
@@ -217,20 +212,7 @@ export const CourseService = {
       };
     }
   }
+  
 };
->>>>>>> Stashed changes
 
-  getEnrolledCourses: async (): Promise<EnrolledCoursesResponse> => {
-    try {
-      const response = await api.get('/courses/enrolled');
-      return response.data;
-    } catch (error: any) {
-      return {
-        success: false,
-        error: {
-          message: error.response?.data?.error?.message || 'Error fetching enrolled courses',
-        },
-      };
-    }
-  },
-};
+

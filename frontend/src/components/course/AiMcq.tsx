@@ -4,11 +4,7 @@ import { useChat } from "./ai-help/hooks/useChat";
 import { MCQ } from "./ai-help/types";
 import { McqPopup } from "./McqPopup";
 
-<<<<<<< Updated upstream
-export default function AiMcq({ chapterText }: { chapterText: string }) {
-=======
 export default function AiMcq({ chapterText,handleMcqComplete }: { chapterText: string,handleMcqComplete: (score: number) => Promise<void> }) {
->>>>>>> Stashed changes
   const [mcqs, setMcqs] = useState<MCQ[]>([]);
   const [loading, setLoading] = useState(true);
   const [answers, setAnswers] = useState<Record<number, number>>({});
@@ -52,10 +48,7 @@ export default function AiMcq({ chapterText,handleMcqComplete }: { chapterText: 
     );
     const scoreValue = (correctAnswers / totalQuestions) * 100;
     setScore(scoreValue);
-<<<<<<< Updated upstream
-=======
     handleMcqComplete(scoreValue)
->>>>>>> Stashed changes
 
     const aiFeedback = await generateFeedback(mcqs, answers, scoreValue);
     setFeedback(aiFeedback);
@@ -67,63 +60,6 @@ export default function AiMcq({ chapterText,handleMcqComplete }: { chapterText: 
     setShowPopup(false);
   };
 
-<<<<<<< Updated upstream
-  if (loading) return <div>Loading MCQs...</div>;
-
-  return (
-    <div className="space-y-4 p-4">
-      {mcqs.map((mcq) => (
-        <div key={mcq.id} className="border rounded p-4">
-          <p className="font-medium">{mcq.question}</p>
-          <div className="mt-2 space-y-2">
-            {mcq.options.map((option, index) => (
-              <div key={index} className="flex items-center">
-                <input
-                  type="radio"
-                  name={`question-${mcq.id}`}
-                  value={index}
-                  checked={answers[mcq.id] === index}
-                  onChange={() => handleAnswerChange(mcq.id, index)}
-                  className="mr-2"
-                />
-                <span
-                  className={
-                    score !== null
-                      ? `${
-                          mcq.correctAnswer === index
-                            ? "text-green-600 font-medium"
-                            : answers[mcq.id] === index
-                            ? "text-red-600"
-                            : ""
-                        }`
-                      : ""
-                  }
-                >
-                  {option}
-                </span>
-              </div>
-            ))}
-          </div>
-        </div>
-      ))}
-
-      {showSubmit ? (
-        <button
-          onClick={handleSubmit}
-          className="mt-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed"
-          disabled={Object.keys(answers).length !== mcqs.length}
-        >
-          Submit
-        </button>
-      ) : (
-        <button
-          onClick={loadMcqs}
-          className="mt-4 px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700"
-        >
-          Retake Exam
-        </button>
-      )}
-=======
   if (loading) {
     return (
       <div className="flex justify-center items-center min-h-[400px]">
@@ -187,7 +123,6 @@ export default function AiMcq({ chapterText,handleMcqComplete }: { chapterText: 
           )}
         </div>
       </div>
->>>>>>> Stashed changes
 
       {showPopup && (
         <McqPopup

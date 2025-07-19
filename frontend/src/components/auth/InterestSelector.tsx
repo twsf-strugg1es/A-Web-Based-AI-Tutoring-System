@@ -85,10 +85,7 @@ export function InterestSelector({
           return (
             <motion.button
               key={interest.id}
-<<<<<<< Updated upstream
-=======
               type="button"
->>>>>>> Stashed changes
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               onClick={() => toggleInterest(interest.id)}

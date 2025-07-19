@@ -1,10 +1,3 @@
-<<<<<<< Updated upstream
-import { useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
-import { BookOpen, Clock, Award, ChevronDown, ChevronUp } from 'lucide-react';
-import { CourseService, Course } from '../services/course';
-import { toast } from 'react-hot-toast';
-=======
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
@@ -18,7 +11,6 @@ import {
 } from "lucide-react";
 import { CourseService, Course } from "../services/course";
 import { toast } from "react-hot-toast";
->>>>>>> Stashed changes
 
 interface EnrolledCourse extends Course {
   chapters: {
@@ -33,11 +25,8 @@ export function MyLearning() {
   const [courses, setCourses] = useState<EnrolledCourse[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [expandedCourseId, setExpandedCourseId] = useState<string | null>(null);
-<<<<<<< Updated upstream
-=======
   const [filter, setFilter] = useState("all");
   const navigate = useNavigate();
->>>>>>> Stashed changes
 
   useEffect(() => {
     loadEnrolledCourses();
@@ -48,11 +37,7 @@ export function MyLearning() {
       const response = await CourseService.getEnrolledCourses();
       setCourses(response.data || []);
     } catch (error) {
-<<<<<<< Updated upstream
-      toast.error('Failed to load enrolled courses');
-=======
       toast.error("Failed to load enrolled courses");
->>>>>>> Stashed changes
     } finally {
       setIsLoading(false);
     }
@@ -62,8 +47,6 @@ export function MyLearning() {
     setExpandedCourseId(expandedCourseId === courseId ? null : courseId);
   };
 
-<<<<<<< Updated upstream
-=======
   const filteredCourses = courses.filter((course) => {
     if (filter === "all") return true;
     if (filter === "in-progress") return course.overallProgress < 100;
@@ -71,7 +54,6 @@ export function MyLearning() {
     return true;
   });
 
->>>>>>> Stashed changes
   if (isLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -84,11 +66,6 @@ export function MyLearning() {
     <div className="min-h-screen bg-gray-50 py-8">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between mb-8">
-<<<<<<< Updated upstream
-          <h1 className="text-3xl font-bold text-gray-900">My Learning</h1>
-          <div className="flex items-center space-x-4">
-            <select className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-=======
           <div className="flex items-center space-x-4">
             <button
               onClick={() => navigate(-1)} // Navigates to the previous page
@@ -104,7 +81,6 @@ export function MyLearning() {
               value={filter}
               onChange={(e) => setFilter(e.target.value)}
             >
->>>>>>> Stashed changes
               <option value="all">All Courses</option>
               <option value="in-progress">In Progress</option>
               <option value="completed">Completed</option>
@@ -112,17 +88,6 @@ export function MyLearning() {
           </div>
         </div>
 
-<<<<<<< Updated upstream
-        {courses.length === 0 ? (
-          <div className="text-center py-12">
-            <BookOpen className="w-16 h-16 text-gray-400 mx-auto mb-4" />
-            <h2 className="text-xl font-semibold text-gray-700 mb-2">No courses yet</h2>
-            <p className="text-gray-500">Start learning by enrolling in a course</p>
-          </div>
-        ) : (
-          <div className="space-y-6">
-            {courses.map((course) => (
-=======
         {filteredCourses.length === 0 ? (
           <div className="text-center py-12">
             <BookOpen className="w-16 h-16 text-gray-400 mx-auto mb-4" />
@@ -136,7 +101,6 @@ export function MyLearning() {
         ) : (
           <div className="space-y-6">
             {filteredCourses.map((course) => (
->>>>>>> Stashed changes
               <motion.div
                 key={course.id}
                 initial={{ opacity: 0, y: 20 }}
@@ -204,11 +168,7 @@ export function MyLearning() {
                   {expandedCourseId === course.id && (
                     <motion.div
                       initial={{ height: 0, opacity: 0 }}
-<<<<<<< Updated upstream
-                      animate={{ height: 'auto', opacity: 1 }}
-=======
                       animate={{ height: "auto", opacity: 1 }}
->>>>>>> Stashed changes
                       exit={{ height: 0, opacity: 0 }}
                       className="mt-6 space-y-4"
                     >
@@ -250,8 +210,4 @@ export function MyLearning() {
       </div>
     </div>
   );
-<<<<<<< Updated upstream
 }
-=======
-}
->>>>>>> Stashed changes
